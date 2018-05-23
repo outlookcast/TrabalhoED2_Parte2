@@ -32,7 +32,17 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="AVL.cpp" />
+		<Unit filename="AVL.h" />
+		<Unit filename="Data.cpp" />
+		<Unit filename="Data.h" />
+		<Unit filename="FuncoesAuxiliares.cpp" />
+		<Unit filename="FuncoesAuxiliares.h" />
+		<Unit filename="NoAVL.h" />
+		<Unit filename="arvoreSplay.cpp" />
+		<Unit filename="arvoreSplay.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="noSplay.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

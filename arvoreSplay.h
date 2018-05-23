@@ -14,7 +14,7 @@ private:
 
 public:
     arvoreSplay();
-    void inserir(int key);
+    void inserir(int key,int OwnerUserID, string CreationDate, int Score, string Title);
     noSplay *busca(int key);
     void deletar(int key);
     void imprime();

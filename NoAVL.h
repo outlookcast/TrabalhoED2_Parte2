@@ -1,3 +1,7 @@
+#include <iostream>
+
+using namespace std;
+
 class NoAVL
 {
 public:
@@ -55,8 +59,24 @@ public:
         fatorBanciamento = x;
     }
 
-private:
+    NoAVL(int info, int OwnerUserID, string CreationDate, int Score, string Title)
+    {
+        this->info = info;
+        this->OwnerUserID = OwnerUserID;
+        this->CreationDate = CreationDate;
+        this->Score = Score;
+        this->Title = Title;
+    }
+
+    ///Dados de Question.csv
+    ///info = QuestionID
     int info;
+    int OwnerUserID;
+    string CreationDate;
+    int Score;
+    string Title;
+
+private:
     NoAVL * esq;
     NoAVL * dir;
     int altura;

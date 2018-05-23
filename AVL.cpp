@@ -155,21 +155,27 @@ bool AVL::auxBusca(NoAVL * p, int c)
 
 }
 
-void AVL::insere(int x)
+void AVL::insere(int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title)
 {
 
-    raiz = auxInsere(raiz, x);
+    raiz = auxInsere(raiz,QuestionID,OwnerUserID,CreationDate,Score,Title);
 
 
 }
 
-NoAVL* AVL::auxInsere(NoAVL *p, int x)
+NoAVL* AVL::auxInsere(NoAVL *p, int x, int OwnerUserID, string CreationDate, int Score, string Title)
 {
 
     if(p == NULL)     //Insere um nó
     {
         p = new NoAVL;
+
         p->setInfo(x);
+        p->OwnerUserID = OwnerUserID;
+        p->CreationDate = CreationDate;
+        p->Score = Score;
+        p->Title = Title;
+
         p->setDir(NULL);
         p->setEsq(NULL);
         p->setAltura(0);
@@ -182,7 +188,7 @@ NoAVL* AVL::auxInsere(NoAVL *p, int x)
         if(x > p->getInfo())    //O local de inserção do x está a direita
         {
 
-            p->setDir(auxInsere(p->getDir(), x));
+            p->setDir(auxInsere(p->getDir(), x,OwnerUserID,CreationDate,Score,Title));
 
 
         }
@@ -192,7 +198,7 @@ NoAVL* AVL::auxInsere(NoAVL *p, int x)
             if(x < p->getInfo())//O local de inserção do x está a esquerda
             {
 
-                p->setEsq(auxInsere(p->getEsq(), x));
+                p->setEsq(auxInsere(p->getEsq(), x,OwnerUserID,CreationDate,Score,Title));
             }
         }
 

@@ -137,7 +137,7 @@ noSplay * arvoreSplay::busca(int key)
 }
 
 
-void arvoreSplay::inserir(int key)
+void arvoreSplay::inserir(int key,int OwnerUserID, string CreationDate, int Score, string Title)
 {
     noSplay *z = raiz;
     noSplay *p = NULL;
@@ -150,7 +150,7 @@ void arvoreSplay::inserir(int key)
             z = z-> esq;
     }
 
-    z = new noSplay(key);
+    z = new noSplay(key,OwnerUserID,CreationDate,Score,Title);
     z->parent = p;
 
     if(!p)

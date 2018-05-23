@@ -1,41 +1,18 @@
-#include "AVL.h"
 #include "arvoreSplay.h"
+#include <iostream>
+#include "FuncoesAuxiliares.h"
 
 using namespace std;
 
 int main()
 {
-    /*
-    AVL arv;
-    cout << "Criando Arvore Binaria de Busca (ABB)" << endl;
-    int val;
-    cin>>val;
-    while(val >= 0)
+    arvoreSplay arvore;
+    Data * dados = vetorRandomData(42);
+    for(int i=0;i<5;i++)
     {
-        arv.insere(val);
-        arv.imprime();
-        cout<<endl<<endl;
-        cin>>val;
+        cout<<dados[i].getQuestionID()<<" "<<dados[i].getScore()<<endl;
+        arvore.inserir(dados[i].getQuestionID(),dados[i].getUserID(),dados[i].getDate(),dados[i].getScore(),dados[i].getTitle());
     }
-    cin>>val;
-    while(val >= 0)
-    {
-        arv.remove(val);
-        cout<<endl<<endl;
-        arv.imprime();
-        cin>>val;
-    }
-    */
-    arvoreSplay *arvore = new arvoreSplay();
-    arvore->inserir(10);
-    arvore->inserir(15);
-    arvore->inserir(11);
-    arvore->inserir(20);
-    arvore->deletar(11);
-    noSplay *noArvore = arvore->busca(15);
-    cout<<"Tamanho: "<<arvore->getTamanho()<<endl;
-    arvore->imprime();
-    delete arvore;
-
-    return 0;
+    arvore.imprime();
+    delete [] dados;
 }

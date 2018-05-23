@@ -1,4 +1,7 @@
 #include "NoAVL.h"
+#include <iostream>
+
+using namespace std;
 
 class AVL
 {
@@ -8,7 +11,7 @@ private:
 
     bool auxBusca(NoAVL * p, int c);
     NoAVL* libera(NoAVL *p);
-    NoAVL* auxInsere(NoAVL *p, int x);
+    NoAVL* auxInsere(NoAVL *p, int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title);
     void imprimePorNivel(NoAVL* p, int nivel);
     NoAVL* menorSubArvDireita(NoAVL *p);
     NoAVL* removeFolha(NoAVL *p);
@@ -28,7 +31,7 @@ public:
     bool vazia();
     bool busca(int x);
     void remove(int C);
-    void insere(int x);
+    void insere(int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title);
     void imprime();
 
 // outras operacoes

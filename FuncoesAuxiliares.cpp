@@ -161,8 +161,9 @@ Data* readFile()
     }
 }
 
-Data* vetorRandomData(int tam, Data *aux)
+Data* vetorRandomData(int tam)
 {
+    Data *aux = readFile();
     srand(time(NULL));
     Data *randomArray = new Data[tam];
     int j;

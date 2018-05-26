@@ -1,6 +1,8 @@
-#ifndef NOAVL_H_INCLUDED
-#define NOAVL_H_INCLUDED
+#ifndef NOCOR_H_INCLUDED
+#define NOCOR_H_INCLUDED
 
+#include <iostream>
+#include <string>
 #include <iostream>
 #include <sstream>
 #include <iostream>
@@ -12,21 +14,69 @@
 #include <stdio.h>
 #include <math.h>
 
-
 using namespace std;
 
 
-class NoAVL
+class NoCor
 {
 
 public:
 
-    NoAVL() {};
-    ~NoAVL() {};
+    NoCor() {};
 
-    void setEsq(NoAVL *p)
+    ~NoCor() {};
+
+    void setEsq(NoCor *p)
     {
         esq = p;
+    }
+
+    void setDir(NoCor *p)
+    {
+        dir = p;
+    }
+
+    NoCor * getEsq()
+    {
+        return esq;
+    }
+
+    NoCor * getDir()
+    {
+        return dir;
+    }
+
+    int getAltura()
+    {
+
+        return altura;
+    }
+
+    void setAltura(int x)
+    {
+
+        altura = x;
+    }
+
+    void setCor(int a)
+    {
+        cor = a;
+    }
+
+    int getCor()
+    {
+
+        return cor;
+    }
+
+    NoCor* getPai()
+    {
+        return pai;
+    }
+
+    void setPai(NoCor *pai)
+    {
+        this->pai = pai;
     }
 
     string completaString(string s)
@@ -78,54 +128,22 @@ public:
         return num;
     }
 
-    void setDir(NoAVL *p)
-    {
-        dir = p;
-    }
-
-    NoAVL * getEsq()
-    {
-        return esq;
-    }
-
-    NoAVL * getDir()
-    {
-        return dir;
-    }
-
-
-    int getAltura()
-    {
-        return altura;
-    }
-
-    void setAltura(int x)
-    {
-        altura = x;
-    }
-
-    int getBalanciamento()
-    {
-        return fatorBanciamento;
-    }
-
-    void setBalanciamento(int x)
-    {
-        fatorBanciamento = x;
-    }
-
     int QuestionID;
     int OwnerUserID;
     string CreationDate;
     int Score;
     string Title;
 
+
+
 private:
 
-    NoAVL * esq;
-    NoAVL * dir;
+    NoCor * esq;
+    NoCor * dir;
+    NoCor *pai;
     int altura;
-    int fatorBanciamento;
+    int cor; //1 para vermelho, 2 para preto.
+
 
 };
 

@@ -34,14 +34,19 @@
 		</Compiler>
 		<Unit filename="AVL.cpp" />
 		<Unit filename="AVL.h" />
+		<Unit filename="ArvoreB.cpp" />
+		<Unit filename="ArvoreB.h" />
 		<Unit filename="Data.cpp" />
 		<Unit filename="Data.h" />
 		<Unit filename="FuncoesAuxiliares.cpp" />
 		<Unit filename="FuncoesAuxiliares.h" />
 		<Unit filename="NoAVL.h" />
+		<Unit filename="NoB.h" />
 		<Unit filename="arvoreSplay.cpp" />
 		<Unit filename="arvoreSplay.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="merge.cpp" />
+		<Unit filename="merge.h" />
 		<Unit filename="noSplay.h" />
 		<Extensions>
 			<code_completion />

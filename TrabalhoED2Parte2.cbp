@@ -34,6 +34,8 @@
 		</Compiler>
 		<Unit filename="AVL.cpp" />
 		<Unit filename="AVL.h" />
+		<Unit filename="ArvVerPre.cpp" />
+		<Unit filename="ArvVerPre.h" />
 		<Unit filename="ArvoreB.cpp" />
 		<Unit filename="ArvoreB.h" />
 		<Unit filename="Data.cpp" />
@@ -42,6 +44,7 @@
 		<Unit filename="FuncoesAuxiliares.h" />
 		<Unit filename="NoAVL.h" />
 		<Unit filename="NoB.h" />
+		<Unit filename="NoCor.h" />
 		<Unit filename="arvoreSplay.cpp" />
 		<Unit filename="arvoreSplay.h" />
 		<Unit filename="main.cpp" />

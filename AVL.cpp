@@ -1,8 +1,5 @@
+// pagina 92
 #include "AVL.h"
-#include <iostream>
-#include "stdlib.h"
-
-using namespace std;
 
 AVL::AVL()
 {
@@ -32,20 +29,6 @@ NoAVL* AVL::libera(NoAVL *p)
 
 }
 
-int AVL::getRaiz()
-{
-
-    if(raiz != NULL)
-        return raiz->getInfo();
-
-    else
-    {
-        cout<<"Erro, arvore vazia\n";
-        exit(1);
-
-    }
-}
-
 bool AVL::vazia()
 {
 
@@ -67,6 +50,8 @@ bool AVL::busca(int x)
     return auxBusca(raiz, x);
 
 }
+
+/*
 void AVL::remove(int C)
 {
     raiz = auxRemove(raiz, C);
@@ -98,6 +83,7 @@ NoAVL* AVL::auxRemove(NoAVL* p, int C)
     }
     return p;
 }
+*/
 
 NoAVL* AVL::removeFolha(NoAVL *p)
 {
@@ -125,19 +111,19 @@ NoAVL* AVL::menorSubArvDireita(NoAVL *p)
     return p;
 }
 
-bool AVL::auxBusca(NoAVL * p, int c)
+bool AVL::auxBusca(NoAVL * p, long long unsigned c)
 {
 
     if(p != NULL)
     {
 
-        if(p->getInfo() == c)
+        if(p->calculaChave() == c)
             return true;
 
         else
         {
 
-            if(c>p->getInfo())
+            if(c>p->calculaChave())
                 return auxBusca(p->getDir(), c);
 
             else
@@ -158,19 +144,21 @@ bool AVL::auxBusca(NoAVL * p, int c)
 void AVL::insere(int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title)
 {
 
-    raiz = auxInsere(raiz,QuestionID,OwnerUserID,CreationDate,Score,Title);
+    raiz = auxInsere(raiz, QuestionID,OwnerUserID,CreationDate,Score,Title);
 
 
 }
 
-NoAVL* AVL::auxInsere(NoAVL *p, int x, int OwnerUserID, string CreationDate, int Score, string Title)
+NoAVL* AVL::auxInsere(NoAVL *p, int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title)
 {
+
+    long long unsigned x = calculaChave(QuestionID,OwnerUserID);
 
     if(p == NULL)     //Insere um nó
     {
         p = new NoAVL;
 
-        p->setInfo(x);
+        p->QuestionID = QuestionID;
         p->OwnerUserID = OwnerUserID;
         p->CreationDate = CreationDate;
         p->Score = Score;
@@ -185,20 +173,20 @@ NoAVL* AVL::auxInsere(NoAVL *p, int x, int OwnerUserID, string CreationDate, int
     else
     {
 
-        if(x > p->getInfo())    //O local de inserção do x está a direita
+        if(x > p->calculaChave())    //O local de inserção do x está a direita
         {
 
-            p->setDir(auxInsere(p->getDir(), x,OwnerUserID,CreationDate,Score,Title));
+            p->setDir(auxInsere(p->getDir(),QuestionID,OwnerUserID,CreationDate,Score,Title));
 
 
         }
         else
         {
 
-            if(x < p->getInfo())//O local de inserção do x está a esquerda
+            if(x < p->calculaChave())//O local de inserção do x está a esquerda
             {
 
-                p->setEsq(auxInsere(p->getEsq(), x,OwnerUserID,CreationDate,Score,Title));
+                p->setEsq(auxInsere(p->getEsq(),QuestionID,OwnerUserID,CreationDate,Score,Title));
             }
         }
 
@@ -243,6 +231,8 @@ NoAVL* AVL::auxInsere(NoAVL *p, int x, int OwnerUserID, string CreationDate, int
 
 
 }
+
+
 void AVL::imprime()
 {
     imprimePorNivel(raiz, 0);
@@ -255,12 +245,14 @@ void AVL::imprimePorNivel(NoAVL* p, int nivel)
         cout << "(" << nivel << ")";
         for(int i = 1; i <= nivel; i++)
             cout << "--";
-        cout << p->getInfo() << endl;
+        cout << p->QuestionID << " " << p->OwnerUserID <<"  "<< p->CreationDate<<" "<< p->Score<<" "<< p->Title << endl;
         imprimePorNivel(p->getEsq(), nivel+1);
         imprimePorNivel(p->getDir(), nivel+1);
     }
 
 }
+
+
 NoAVL* AVL::rotacaoEsquerda(NoAVL *x)
 {
 
@@ -336,17 +328,18 @@ NoAVL* AVL::rotacaoDireita(NoAVL *x)
     novaRaiz->setBalanciamento(alturaDir - alturaEsq);
 
     return novaRaiz;
+
 }
 
-void AVL::rotacaoD(int x)
+void AVL::rotacaoD(long long unsigned x)
 {
     NoAVL *anterior = NULL;
     NoAVL *aux = raiz;
 
-    while(aux->getInfo() != x)
+    while(aux->calculaChave() != x)
     {
         anterior = aux;
-        if(x > aux->getInfo())
+        if(x > aux->calculaChave())
             aux = aux->getDir();
 
         else
@@ -363,15 +356,15 @@ void AVL::rotacaoD(int x)
 
 
 }
-void AVL::rotacaoE(int x)
+void AVL::rotacaoE(long long unsigned x)
 {
     NoAVL *anterior = NULL;
     NoAVL *aux = raiz;
 
-    while(aux->getInfo() != x)
+    while(aux->calculaChave() != x)
     {
         anterior = aux;
-        if(x > aux->getInfo())
+        if(x > aux->calculaChave())
             aux = aux->getDir();
 
         else
@@ -449,3 +442,15 @@ NoAVL* AVL::balanciamentoInsert(NoAVL *x)
     return x;
 
 }
+
+long long unsigned AVL::calculaChave(int QuestionID, int OwnerUserID)
+{
+    ///calcula chave
+    string U_ID = convertePraString(OwnerUserID);
+    string Q_ID = convertePraString(QuestionID);
+    U_ID = completaString(U_ID);
+    Q_ID = completaString(Q_ID);
+    long long unsigned num = convertePraInt(U_ID,Q_ID);
+    return num;
+}
+

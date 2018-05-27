@@ -149,7 +149,7 @@ void arvoreSplay::inserir(int QuestionID, int OwnerUserID, string CreationDate, 
     tamanho++;
 }
 
-noSplay * arvoreSplay::auxBusca(int key)
+noSplay * arvoreSplay::auxBusca(long long unsigned key)
 {
     noSplay *z = raiz;
     while(z)
@@ -165,7 +165,7 @@ noSplay * arvoreSplay::auxBusca(int key)
 }
 
 
-void arvoreSplay::auxDeletar(int key)
+void arvoreSplay::auxDeletar(long long unsigned key)
 {
     noSplay *z = auxBusca(key);
     if(!z)
@@ -223,4 +223,48 @@ long long unsigned arvoreSplay::calculaChave(int QuestionID, int OwnerUserID)
     Q_ID = completaString(Q_ID);
     long long unsigned num = convertePraInt(U_ID,Q_ID);
     return num;
+}
+
+bool arvoreSplay::buscaQuestinIDUserID(int QuestionID,int UserID)
+{
+    long long unsigned chaveAux = calculaChave(QuestionID,UserID);
+    noSplay * no = auxBusca(chaveAux);
+    if(no != NULL)
+    {
+        splay(no);
+        return true;
+    }
+    else
+        return false;
+}
+
+bool arvoreSplay::buscaUserID(int UserID)
+{
+    long long unsigned chaveAux = calculaChave(0,UserID);
+    noSplay * no = auxBuscaUserID(chaveAux,UserID);
+    if(no != NULL)
+    {
+        splay(no);
+        return true;
+    }
+    else
+        return false;
+}
+
+noSplay * arvoreSplay::auxBuscaUserID(long long unsigned key, int UserID)
+{
+    noSplay *z = raiz;
+    while(z)
+    {
+        if(z->OwnerUserID == UserID)
+            return z;
+        else
+        {
+            if (z->chave > key)
+                z = z->dir;
+            else if(z->chave < key)
+                z = z->esq;
+        }
+    }
+    return NULL;
 }

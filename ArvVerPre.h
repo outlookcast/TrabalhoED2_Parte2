@@ -25,7 +25,8 @@ private:
     void arrumaInsercao(NoCor *z);
     ///void arrumaRemocao(NoCor *x);
     long long unsigned calculaChave(int QuestionID, int OwnerUserID);
-
+    bool auxBuscaQuestinIDUserID(NoCor * no, int QuestionID, int UserID);
+    bool auxBuscaUserID(NoCor * no,int UserID);
 
 
 public:
@@ -35,10 +36,12 @@ public:
     void rotacaoD(int x);
     void rotacaoE(int x);
     bool vazia();
-    bool busca(int x);
+    ///bool busca(int x);
     ///void remove(int C);
     void insere(int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title);
     void imprime();
+    bool buscaQuestinIDUserID(int QuestionID,int UserID);
+    bool buscaUserID(int UserID);
 
     string completaString(string s)
     {

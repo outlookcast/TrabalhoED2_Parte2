@@ -16,9 +16,10 @@ private:
     noSplay *subArvoreMinima(noSplay *x);
     noSplay *subArvoreMaxima(noSplay *x);
     long long unsigned calculaChave(int QuestionID, int OwnerUserID);
-    void auxDeletar(int key);
-    noSplay *auxBusca(int key);
+    void auxDeletar(long long unsigned key);
+    noSplay * auxBusca(long long unsigned key);
     void imprimeAux(noSplay *x, int nivel);
+    noSplay * auxBuscaUserID(long long unsigned key,int UserID);
     string completaString(string s)
     {
         if(s.size() < 32)
@@ -63,6 +64,8 @@ public:
     void inserir(int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title);
     void imprime();
     int getTamanho();
+    bool buscaQuestinIDUserID(int QuestionID,int UserID);
+    bool buscaUserID(int UserID);
 };
 
 

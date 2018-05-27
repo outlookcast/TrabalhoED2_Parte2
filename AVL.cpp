@@ -486,3 +486,33 @@ bool AVL::auxBuscaQuestinIDUserID(NoAVL * p, int QuestionID, int UserID)
     }
 }
 
+bool AVL::buscaUserID(int UserID)
+{
+    this->auxBuscaUserID(this->raiz,UserID);
+}
+
+bool AVL::auxBuscaUserID(NoAVL * no,int UserID)
+{
+    if(no != NULL)
+    {
+        if(UserID == no->OwnerUserID)
+            return true;
+        else
+        {
+            if(calculaChave(0,UserID) > no->calculaChave())
+            {
+                cout<<calculaChave(0,UserID)<<"e maior que "<<no->calculaChave()<<endl<<endl;
+                return auxBuscaUserID(no->getDir(),UserID);
+            }
+            else
+            {
+                cout<<calculaChave(0,UserID)<<" e menor que "<<no->calculaChave()<<endl<<endl;
+                return auxBuscaUserID(no->getEsq(),UserID);
+            }
+        }
+    }
+    else
+    {
+        return false;
+    }
+}

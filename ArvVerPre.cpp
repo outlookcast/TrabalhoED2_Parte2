@@ -147,6 +147,7 @@ NoCor* ArvVerPre::auxRemove(NoCor* p, int C, NoCor *&x)
     return p;
 }
 */
+
 NoCor* ArvVerPre::removeFolha(NoCor *p)
 {
     delete p;
@@ -388,4 +389,67 @@ long long unsigned ArvVerPre::calculaChave(int QuestionID, int OwnerUserID)
     Q_ID = completaString(Q_ID);
     long long unsigned num = convertePraInt(U_ID,Q_ID);
     return num;
+}
+
+bool ArvVerPre::buscaQuestinIDUserID(int QuestionID, int UserID)
+{
+    return this->auxBuscaQuestinIDUserID(this->raiz,QuestionID,UserID);
+}
+
+bool ArvVerPre::auxBuscaQuestinIDUserID(NoCor * p, int QuestionID, int UserID)
+{
+
+    if(p != NULL)
+    {
+        if(calculaChave(QuestionID,UserID) == p->calculaChave())
+            return true;
+        else
+        {
+            if(calculaChave(QuestionID,UserID) > p->calculaChave())
+            {
+                cout<<calculaChave(QuestionID,UserID)<<" e maior que "<<p->calculaChave()<<endl<<endl;
+                return auxBuscaQuestinIDUserID(p->getDir(),QuestionID,UserID);
+            }
+            else
+            {
+                cout<<calculaChave(QuestionID,UserID)<<" e menor que "<<p->calculaChave()<<endl<<endl;
+                return auxBuscaQuestinIDUserID(p->getEsq(),QuestionID,UserID);
+            }
+        }
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool ArvVerPre::buscaUserID(int UserID)
+{
+    this->auxBuscaUserID(this->raiz,UserID);
+}
+
+bool ArvVerPre::auxBuscaUserID(NoCor * no,int UserID)
+{
+    if(no != NULL)
+    {
+        if(UserID == no->OwnerUserID)
+            return true;
+        else
+        {
+            if(calculaChave(0,UserID) > no->calculaChave())
+            {
+                cout<<calculaChave(0,UserID)<<"e maior que "<<no->calculaChave()<<endl<<endl;
+                return auxBuscaUserID(no->getDir(),UserID);
+            }
+            else
+            {
+                cout<<calculaChave(0,UserID)<<" e menor que "<<no->calculaChave()<<endl<<endl;
+                return auxBuscaUserID(no->getEsq(),UserID);
+            }
+        }
+    }
+    else
+    {
+        return false;
+    }
 }

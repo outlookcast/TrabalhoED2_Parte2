@@ -41,7 +41,8 @@ public:
         dir = NULL;
         parent = NULL;
 
-        chave = calculaChave();
+        this->chave = calculaChave();
+        cout<<"Chave calculada: "<<this->chave<<endl;
     }
 
     string completaString(string s)

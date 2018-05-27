@@ -19,17 +19,17 @@ using namespace std;
 int main()
 {
 
-    AVL arvore;
-    Data * dados = vetorRandomData(42);
-    for(int i=0;i<15;i++)
+    arvoreSplay arvore;
+    Data * dados = vetorRandomData(4500);
+    for(int i=0;i<300;i++)
     {
-        cout<<dados[i].getQuestionID()<<" "<<dados[i].getUserID()<<" "<<dados[i].getDate()<<" "<<dados[i].getScore()<<" "<<dados[i].getTitle()<<endl;
-        arvore.insere(dados[i].getQuestionID(),dados[i].getUserID(),dados[i].getDate(),dados[i].getScore(),dados[i].getTitle());
+        arvore.inserir(dados[i].getQuestionID(),dados[i].getUserID(),dados[i].getDate(),dados[i].getScore(),dados[i].getTitle());
     }
     cout<<endl;
     arvore.imprime();
     cout<<endl<<endl;
-    cout<<"O UserID "<<dados[5].getUserID()<<" esta na arvore? "<<arvore.buscaQuestinIDUserID(dados[5].getQuestionID(),dados[5].getUserID())<<endl;
+    cout<<"Inicio da busca"<<endl;
+    cout<<"O UserID "<<dados[301].getUserID()<<" esta na arvore? "<<arvore.buscaUserID(dados[301].getUserID())<<endl;
 
     delete [] dados;
 

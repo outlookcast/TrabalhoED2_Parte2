@@ -19,15 +19,17 @@ using namespace std;
 int main()
 {
 
-    ArvVerPre arvore;
+    AVL arvore;
     Data * dados = vetorRandomData(42);
-    for(int i=0;i<10;i++)
+    for(int i=0;i<15;i++)
     {
         cout<<dados[i].getQuestionID()<<" "<<dados[i].getUserID()<<" "<<dados[i].getDate()<<" "<<dados[i].getScore()<<" "<<dados[i].getTitle()<<endl;
         arvore.insere(dados[i].getQuestionID(),dados[i].getUserID(),dados[i].getDate(),dados[i].getScore(),dados[i].getTitle());
     }
     cout<<endl;
     arvore.imprime();
+    cout<<endl<<endl;
+    cout<<"O UserID "<<dados[5].getUserID()<<" esta na arvore? "<<arvore.buscaQuestinIDUserID(dados[5].getQuestionID(),dados[5].getUserID())<<endl;
 
     delete [] dados;
 

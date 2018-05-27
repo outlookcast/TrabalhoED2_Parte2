@@ -34,11 +34,14 @@
 		</Compiler>
 		<Unit filename="AVL.cpp" />
 		<Unit filename="AVL.h" />
+		<Unit filename="ArvVerPre.cpp" />
+		<Unit filename="ArvVerPre.h" />
 		<Unit filename="Data.cpp" />
 		<Unit filename="Data.h" />
 		<Unit filename="FuncoesAuxiliares.cpp" />
 		<Unit filename="FuncoesAuxiliares.h" />
 		<Unit filename="NoAVL.h" />
+		<Unit filename="NoCor.h" />
 		<Unit filename="arvoreSplay.cpp" />
 		<Unit filename="arvoreSplay.h" />
 		<Unit filename="main.cpp" />

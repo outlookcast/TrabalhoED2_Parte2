@@ -23,6 +23,7 @@ private:
     NoAVL* rotacaoEsquerda(NoAVL *x);
     NoAVL* rotacaoDireita(NoAVL *x);
     NoAVL* balanciamentoInsert(NoAVL *x);
+    bool auxBuscaQuestinIDUserID(NoAVL * no, int QuestionID, int UserID);
 
     long long unsigned calculaChave(int QuestionID, int OwnerUserID);
 
@@ -39,6 +40,7 @@ public:
     ///void remove(int C);
     void insere(int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title);
     void imprime();
+    bool buscaQuestinIDUserID(int QuestionID,int UserID);
 
 
     string completaString(string s)

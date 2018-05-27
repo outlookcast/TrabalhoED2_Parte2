@@ -245,7 +245,7 @@ void AVL::imprimePorNivel(NoAVL* p, int nivel)
         cout << "(" << nivel << ")";
         for(int i = 1; i <= nivel; i++)
             cout << "--";
-        cout << p->QuestionID << " " << p->OwnerUserID <<"  "<< p->CreationDate<<" "<< p->Score<<" "<< p->Title << endl;
+        cout << calculaChave(p->QuestionID,p->OwnerUserID)<<endl;
         imprimePorNivel(p->getEsq(), nivel+1);
         imprimePorNivel(p->getDir(), nivel+1);
     }
@@ -452,5 +452,37 @@ long long unsigned AVL::calculaChave(int QuestionID, int OwnerUserID)
     Q_ID = completaString(Q_ID);
     long long unsigned num = convertePraInt(U_ID,Q_ID);
     return num;
+}
+
+bool AVL::buscaQuestinIDUserID(int QuestionID, int UserID)
+{
+    return this->auxBuscaQuestinIDUserID(this->raiz,QuestionID,UserID);
+}
+
+bool AVL::auxBuscaQuestinIDUserID(NoAVL * p, int QuestionID, int UserID)
+{
+
+    if(p != NULL)
+    {
+        if(calculaChave(QuestionID,UserID) == p->calculaChave())
+            return true;
+        else
+        {
+            if(calculaChave(QuestionID,UserID) > p->calculaChave())
+            {
+                cout<<calculaChave(QuestionID,UserID)<<" e maior que "<<p->calculaChave()<<endl<<endl;
+                return auxBuscaQuestinIDUserID(p->getDir(), QuestionID,UserID);
+            }
+            else
+            {
+                cout<<calculaChave(QuestionID,UserID)<<" e menor que "<<p->calculaChave()<<endl<<endl;
+                return auxBuscaQuestinIDUserID(p->getEsq(),QuestionID,UserID);
+            }
+        }
+    }
+    else
+    {
+        return false;
+    }
 }
 

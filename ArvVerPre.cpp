@@ -245,7 +245,7 @@ void ArvVerPre::imprimePorNivel(NoCor *p, int nivel)
         cout << "(" << nivel << ")";
         for (int i = 1; i <= nivel; i++)
             cout << "--";
-        cout << p->QuestionID << " " << p->getCor() << endl;
+        cout << p->QuestionID << " " << p->getCor() <<" "<<p->calculaChave()<<endl;
         imprimePorNivel(p->getEsq(), nivel + 1);
         imprimePorNivel(p->getDir(), nivel + 1);
     }

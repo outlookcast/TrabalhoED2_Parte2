@@ -29,7 +29,7 @@ int main()
     arvore.imprime();
     cout<<endl<<endl;
     cout<<"Inicio da busca"<<endl;
-    cout<<"O UserID "<<dados[5].getUserID()<<" esta na arvore? "<<arvore.buscaQuestinIDUserID(dados[5].getQuestionID(),dados[5].getUserID())<<endl;
+    cout<<"O UserID "<<dados[5].getUserID()<<" esta na arvore? "<<arvore.buscaUserID(dados[5].getUserID())<<endl;
 
     delete [] dados;
 

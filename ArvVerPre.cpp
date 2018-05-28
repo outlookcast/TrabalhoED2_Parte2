@@ -436,14 +436,12 @@ bool ArvVerPre::auxBuscaUserID(NoCor * no,int UserID)
             return true;
         else
         {
-            if(calculaChave(0,UserID) > no->calculaChave())
+            if(UserID > no->OwnerUserID)
             {
-                cout<<calculaChave(0,UserID)<<"e maior que "<<no->calculaChave()<<endl<<endl;
                 return auxBuscaUserID(no->getDir(),UserID);
             }
             else
             {
-                cout<<calculaChave(0,UserID)<<" e menor que "<<no->calculaChave()<<endl<<endl;
                 return auxBuscaUserID(no->getEsq(),UserID);
             }
         }

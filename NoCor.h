@@ -2,8 +2,6 @@
 #define NOCOR_H_INCLUDED
 
 #include <iostream>
-#include <string>
-#include <iostream>
 #include <sstream>
 #include <iostream>
 #include <stdlib.h>
@@ -22,7 +20,10 @@ class NoCor
 
 public:
 
-    NoCor() {};
+    NoCor()
+    {
+        this->chave = 0;
+    }
 
     ~NoCor() {};
 
@@ -49,34 +50,29 @@ public:
     int getAltura()
     {
 
-        return altura;
+      return altura;
     }
-
     void setAltura(int x)
     {
 
-        altura = x;
+      altura = x;
     }
-
     void setCor(int a)
     {
-        cor = a;
+      cor = a;
     }
-
     int getCor()
     {
 
-        return cor;
+      return cor;
     }
-
     NoCor* getPai()
     {
-        return pai;
+      return pai;
     }
-
     void setPai(NoCor *pai)
     {
-        this->pai = pai;
+      this->pai = pai;
     }
 
     string completaString(string s)
@@ -119,13 +115,20 @@ public:
 
     long long unsigned calculaChave()
     {
-        ///calcula chave
-        string U_ID = convertePraString(this->OwnerUserID);
-        string Q_ID = convertePraString(this->QuestionID);
-        U_ID = completaString(U_ID);
-        Q_ID = completaString(Q_ID);
-        long long unsigned num = convertePraInt(U_ID,Q_ID);
-        return num;
+        if(this->chave == 0)
+        {
+            ///calcula chave
+            string U_ID = convertePraString(this->OwnerUserID);
+            string Q_ID = convertePraString(this->QuestionID);
+            U_ID = completaString(U_ID);
+            Q_ID = completaString(Q_ID);
+            long long unsigned num = convertePraInt(U_ID,Q_ID);
+            this->chave = num;
+            return this->chave;
+        }
+        else
+            return this->chave;
+
     }
 
     int QuestionID;
@@ -136,8 +139,9 @@ public:
 
 
 
-private:
 
+private:
+    long long unsigned chave;
     NoCor * esq;
     NoCor * dir;
     NoCor *pai;

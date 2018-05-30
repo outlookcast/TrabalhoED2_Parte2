@@ -38,14 +38,27 @@
 		<Unit filename="ArvVerPre.h" />
 		<Unit filename="Data.cpp" />
 		<Unit filename="Data.h" />
+		<Unit filename="FrequenciaTag.h" />
 		<Unit filename="FuncoesAuxiliares.cpp" />
 		<Unit filename="FuncoesAuxiliares.h" />
+		<Unit filename="HashAnswer.cpp" />
+		<Unit filename="HashAnswer.h" />
+		<Unit filename="HashBuscaAnswer.cpp" />
+		<Unit filename="HashBuscaAnswer.h" />
+		<Unit filename="HashInt.cpp" />
+		<Unit filename="HashInt.h" />
 		<Unit filename="NoAVL.h" />
 		<Unit filename="NoCor.h" />
+		<Unit filename="Testes.cpp" />
+		<Unit filename="Testes.h" />
+		<Unit filename="answer.cpp" />
+		<Unit filename="answer.h" />
 		<Unit filename="arvoreSplay.cpp" />
 		<Unit filename="arvoreSplay.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="noSplay.h" />
+		<Unit filename="quickSort1.h" />
+		<Unit filename="quicksort1.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

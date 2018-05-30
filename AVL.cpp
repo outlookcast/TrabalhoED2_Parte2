@@ -3,7 +3,7 @@
 
 AVL::AVL()
 {
-
+    this->numRotacoes = 0;
     raiz = NULL;
 }
 AVL::~AVL()
@@ -51,21 +51,22 @@ bool AVL::busca(int x)
 
 }
 
-/*
-void AVL::remove(int C)
+
+void AVL::remove(int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title)
 {
-    raiz = auxRemove(raiz, C);
+    raiz = auxRemove(raiz, QuestionID,OwnerUserID,CreationDate,Score,Title);
     raiz = balanciamentoInsert(raiz);
 }
 
-NoAVL* AVL::auxRemove(NoAVL* p, int C)
+NoAVL* AVL::auxRemove(NoAVL* p, int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title)
 {
+    long long unsigned C = calculaChave(QuestionID,OwnerUserID);
     if(p == NULL)
         return NULL;
-    else if(C < p->getInfo())
-        p->setEsq(auxRemove(p->getEsq(), C));
-    else if(C > p->getInfo())
-        p->setDir(auxRemove(p->getDir(), C));
+    else if(C < p->calculaChave())
+        p->setEsq(auxRemove(p->getEsq(),QuestionID,OwnerUserID,CreationDate,Score,Title));
+    else if(C > p->calculaChave())
+        p->setDir(auxRemove(p->getDir(),QuestionID,OwnerUserID,CreationDate,Score,Title));
     else
     {
         if(p->getEsq() == NULL && p->getDir() == NULL)
@@ -75,15 +76,31 @@ NoAVL* AVL::auxRemove(NoAVL* p, int C)
         else
         {
             NoAVL *aux = menorSubArvDireita(p->getDir());
-            int auxC = aux->getInfo();
-            p->setInfo(auxC);
-            aux->setInfo(C);
-            p->setDir(auxRemove(p->getDir(), C));
+
+            int auxQuestionID = aux->QuestionID;
+            int auxOwnerUserID = aux->OwnerUserID;
+            string auxCreationDate = aux->CreationDate;
+            int auxScore = aux->Score;
+            string auxTitle = aux->Title;
+
+            p->QuestionID = auxQuestionID;
+            p->OwnerUserID = auxOwnerUserID;
+            p->CreationDate = auxCreationDate;
+            p->Score = auxScore;
+            p->Title = Title;
+
+            aux->QuestionID = QuestionID;
+            aux->OwnerUserID = OwnerUserID;
+            aux->CreationDate = CreationDate;
+            aux->Score = Score;
+            aux->Title = Title;
+
+            p->setDir(auxRemove(p->getDir(),QuestionID,OwnerUserID,CreationDate,Score,Title));
         }
     }
     return p;
 }
-*/
+
 
 NoAVL* AVL::removeFolha(NoAVL *p)
 {
@@ -255,7 +272,8 @@ void AVL::imprimePorNivel(NoAVL* p, int nivel)
 
 NoAVL* AVL::rotacaoEsquerda(NoAVL *x)
 {
-
+    if(x != NULL)
+        this->numRotacoes++;
     NoAVL *novaRaiz = x->getDir();
     x->setDir(novaRaiz->getEsq());
     novaRaiz->setEsq(x);
@@ -294,6 +312,8 @@ NoAVL* AVL::rotacaoEsquerda(NoAVL *x)
 }
 NoAVL* AVL::rotacaoDireita(NoAVL *x)
 {
+    if(x != NULL)
+        this->numRotacoes++;
     NoAVL *novaRaiz = x->getEsq();
     x->setEsq(novaRaiz->getDir());
     novaRaiz->setDir(x);

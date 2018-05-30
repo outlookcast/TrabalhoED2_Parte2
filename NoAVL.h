@@ -21,7 +21,11 @@ class NoAVL
 
 public:
 
-    NoAVL() {};
+    NoAVL()
+    {
+        this->chave = 0;
+    }
+
     ~NoAVL() {};
 
     void setEsq(NoAVL *p)
@@ -69,13 +73,20 @@ public:
 
     long long unsigned calculaChave()
     {
-        ///calcula chave
-        string U_ID = convertePraString(this->OwnerUserID);
-        string Q_ID = convertePraString(this->QuestionID);
-        U_ID = completaString(U_ID);
-        Q_ID = completaString(Q_ID);
-        long long unsigned num = convertePraInt(U_ID,Q_ID);
-        return num;
+        if(this->chave == 0)
+        {
+            ///calcula chave
+            string U_ID = convertePraString(this->OwnerUserID);
+            string Q_ID = convertePraString(this->QuestionID);
+            U_ID = completaString(U_ID);
+            Q_ID = completaString(Q_ID);
+            long long unsigned num = convertePraInt(U_ID,Q_ID);
+            this->chave = num;
+            return this->chave;
+        }
+        else
+            return this->chave;
+
     }
 
     void setDir(NoAVL *p)
@@ -114,6 +125,7 @@ public:
         fatorBanciamento = x;
     }
 
+    long long unsigned chave;
     int QuestionID;
     int OwnerUserID;
     string CreationDate;

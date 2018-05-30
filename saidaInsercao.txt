@@ -1,0 +1,3 @@
+Testes com a AVL - Número de Elementos = 100000
+Tempo de inserção: 29698 ms
+Número de Rotações: 115242

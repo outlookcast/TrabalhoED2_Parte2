@@ -19,7 +19,7 @@ private:
     NoAVL* menorSubArvDireita(NoAVL *p);
     NoAVL* removeFolha(NoAVL *p);
     NoAVL* remove1Filho(NoAVL *p);
-    ///NoAVL* auxRemove(NoAVL *p, int C);
+    NoAVL* auxRemove(NoAVL *p, int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title);
     NoAVL* rotacaoEsquerda(NoAVL *x);
     NoAVL* rotacaoDireita(NoAVL *x);
     NoAVL* balanciamentoInsert(NoAVL *x);
@@ -38,11 +38,12 @@ public:
     ///int getRaiz();
     bool vazia();
     bool busca(int QuestionID);
-    ///void remove(int C);
+    void remove(int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title);
     void insere(int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title);
     void imprime();
     bool buscaQuestinIDUserID(int QuestionID,int UserID);
     bool buscaUserID(int UserID);
+    long long unsigned numRotacoes;
 
 
     string completaString(string s)

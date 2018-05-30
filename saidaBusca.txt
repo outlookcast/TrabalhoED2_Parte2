@@ -1,0 +1,2 @@
+Testes com a AVL - Número de Elementos = 100000
+Tempo de Busca para 28945 elementos aleatórios: 19 ms

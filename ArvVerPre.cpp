@@ -27,6 +27,7 @@ NoCor *ArvVerPre::libera(NoCor *p)
     return NULL;
 }
 
+
 bool ArvVerPre::vazia()
 {
 
@@ -47,6 +48,7 @@ bool ArvVerPre::busca(int x)
 
     return auxBusca(raiz, x);
 }
+
 
 bool ArvVerPre::auxBusca(NoCor *p, int c)
 {
@@ -73,97 +75,7 @@ bool ArvVerPre::auxBusca(NoCor *p, int c)
         return false;
     }
 }
-
-void ArvVerPre::remove(int C)
-{
-    NoCor *x = NULL;
-    raiz = auxRemove(raiz, C, *&x);
-    if(x->getCor() == 2)
-      arrumaRemocao(x);
-}
-
-void ArvVerPre::arrumaRemocao(NoCor *x)
-{
-
-    while(x != raiz && x->getCor() == 2)
-    {
-        if(x->getPai()->getEsq() == x)
-        {
-            NoCor *w = x->getPai()->getDir(); //w é o irmão de x
-
-            if(w != NULL && w->getCor() == 1)
-            {
-
-            }
-
-        }
-        else
-        {
-
-
-        }
-    }
-
-}
-
-NoCor* ArvVerPre::auxRemove(NoCor* p, int C, NoCor *&x)
-{
-    if(p == NULL)
-        return NULL;
-    else if(C < p->getInfo())
-        p->setEsq(auxRemove(p->getEsq(), C, x));
-    else if(C > p->getInfo())
-        p->setDir(auxRemove(p->getDir(), C, x));
-    else
-    {
-        if(p->getEsq() == NULL && p->getDir() == NULL)
-        {
-           NoCor *paiP = p->getPai();
-           p = removeFolha(p);
-           NoCor *newNo = new NoCor;
-           newNo->setInfo(-1);
-           newNo->setCor(2);
-           newNo->setPai(paiP);
-           x = newNo;
-
-        }
-        else if((p->getEsq() == NULL) || (p->getDir() == NULL))
-        {
-          NoCor *paiP = p->getPai();
-          p = remove1Filho(p);
-          p->setPai(paiP);
-          x = p;
-        }
-        else
-        {
-            NoCor *aux = menorSubArvDireita(p->getDir());
-            int auxC = aux->getInfo();
-            p->setInfo(auxC);
-            aux->setInfo(C);
-            p->setDir(auxRemove(p->getDir(), C, x));
-            x = p;
-        }
-    }
-    return p;
-}
 */
-
-NoCor* ArvVerPre::removeFolha(NoCor *p)
-{
-    delete p;
-    return NULL;
-}
-
-NoCor* ArvVerPre::remove1Filho(NoCor *p)
-{
-    NoCor *aux;
-    if(p->getEsq() == NULL)
-        aux = p->getDir();
-    else
-        aux = p->getEsq();
-    delete p;
-    return aux;
-}
 
 
 NoCor* ArvVerPre::menorSubArvDireita(NoCor *p)
@@ -179,12 +91,11 @@ void ArvVerPre::insere(int QuestionID, int OwnerUserID, string CreationDate, int
 {
     NoCor *noX = NULL;
     int a = 0;
-    long long unsigned x = calculaChave(QuestionID,OwnerUserID);
-    raiz = this->auxInsere(raiz, QuestionID,OwnerUserID,CreationDate,Score,Title, *&noX);
+    raiz = this->auxInsere(raiz,QuestionID,OwnerUserID,CreationDate,Score,Title,*&noX);
 
     raiz->setPai(NULL);
 
-    if (raiz->calculaChave() != x)
+    if (raiz->QuestionID != QuestionID)
         arrumaInsercao(noX);
 
     raiz->setCor(2);
@@ -192,7 +103,6 @@ void ArvVerPre::insere(int QuestionID, int OwnerUserID, string CreationDate, int
 
 NoCor *ArvVerPre::auxInsere(NoCor *p, int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title, NoCor *&noX)
 {
-    long long unsigned x = calculaChave(QuestionID,OwnerUserID);
     if (p == NULL) //Insere um nó
     {
         p = new NoCor;
@@ -200,8 +110,9 @@ NoCor *ArvVerPre::auxInsere(NoCor *p, int QuestionID, int OwnerUserID, string Cr
         p->QuestionID = QuestionID;
         p->OwnerUserID = OwnerUserID;
         p->CreationDate = CreationDate;
-        p->Title = Title;
         p->Score = Score;
+        p->Title = Title;
+        p->calculaChave();
 
         p->setDir(NULL);
         p->setEsq(NULL);
@@ -211,19 +122,19 @@ NoCor *ArvVerPre::auxInsere(NoCor *p, int QuestionID, int OwnerUserID, string Cr
     else
     {
 
-        if (x > p->calculaChave()) //O local de inserção do x está a direita
+        if (calculaChave(QuestionID,OwnerUserID) > p->calculaChave()) //O local de inserção do x está a direita
         {
 
-            p->setDir(auxInsere(p->getDir(),QuestionID,OwnerUserID,CreationDate,Score,Title, noX));
+            p->setDir(auxInsere(p->getDir(),QuestionID,OwnerUserID,CreationDate,Score,Title,noX));
             p->getDir()->setPai(p);
         }
         else
         {
 
-            if (x <= p->calculaChave()) //O local de inserção do x está a esquerda
+            if (calculaChave(QuestionID,OwnerUserID) <= p->calculaChave()) //O local de inserção do x está a esquerda
             {
 
-                p->setEsq(auxInsere(p->getEsq(),QuestionID,OwnerUserID,CreationDate,Score,Title, noX));
+                p->setEsq(auxInsere(p->getEsq(),QuestionID,OwnerUserID,CreationDate,Score,Title,noX));
                 p->getEsq()->setPai(p);
             }
         }
@@ -231,8 +142,6 @@ NoCor *ArvVerPre::auxInsere(NoCor *p, int QuestionID, int OwnerUserID, string Cr
 
     return p;
 }
-
-
 void ArvVerPre::imprime()
 {
     imprimePorNivel(raiz, 0);
@@ -245,13 +154,11 @@ void ArvVerPre::imprimePorNivel(NoCor *p, int nivel)
         cout << "(" << nivel << ")";
         for (int i = 1; i <= nivel; i++)
             cout << "--";
-        cout << p->QuestionID << " " << p->getCor() <<" "<<p->calculaChave()<<endl;
+        cout << p->calculaChave() << " " << p->getCor() << endl;
         imprimePorNivel(p->getEsq(), nivel + 1);
         imprimePorNivel(p->getDir(), nivel + 1);
     }
 }
-
-///OK
 NoCor *ArvVerPre::rotacaoEsquerda(NoCor *x)
 {
 
@@ -269,7 +176,6 @@ NoCor *ArvVerPre::rotacaoEsquerda(NoCor *x)
     return novaRaiz;
 }
 
-///OK
 NoCor *ArvVerPre::rotacaoDireita(NoCor *x)
 {
     NoCor *novaRaiz = x->getEsq();
@@ -379,6 +285,223 @@ void ArvVerPre::arrumaInsercao(NoCor *z)
             return;
     }
 }
+///REMOÇÃO
+NoCor *ArvVerPre::minNoCor(NoCor *p)
+{
+    NoCor *x = p;
+    while (x->getEsq() != NULL)
+    {
+        x = x->getEsq();
+    }
+    return x;
+}
+
+
+void ArvVerPre::rotacionarEsquerdaRemocao(NoCor *p)
+{
+    NoCor *c = p->getDir();
+    p->setDir(c->getEsq());
+
+    if (p->getDir() != NULL)
+        p->getDir()->setPai(p);
+
+    c->setPai(p->getPai());
+
+    if (p->getPai() == NULL)
+        raiz = c;
+    else if (p == p->getPai()->getEsq())
+        p->getPai()->setEsq(c);
+    else
+        p->getPai()->setDir(c);
+
+    c->setEsq(p);
+    p->setPai(c);
+}
+
+void ArvVerPre::rotacionarDireitaRemocao(NoCor *p)
+{
+    NoCor *c = p->getEsq();
+    p->setEsq(c->getDir());
+
+    if (p->getEsq() != NULL)
+        p->getEsq()->setPai(p);
+
+    c->setPai(p->getPai());
+
+    if (p->getPai() == NULL)
+        raiz = c;
+    else if (p == p->getPai()->getEsq())
+        p->getPai()->setEsq(c);
+    else
+        p->getPai()->setDir(c);
+
+    c->setDir(p);
+    p->setPai(c);
+}
+int ArvVerPre::retornaCor(NoCor *p)
+{
+    if(p==NULL)
+        return 2;
+    else
+        return p->getCor();
+}
+
+void ArvVerPre::setColor(NoCor *p, int cor)
+{
+    p->setCor(cor);
+}
+
+void ArvVerPre::removeFix(NoCor *p)
+{
+    if (p == NULL)
+        return;
+    if (p == raiz)
+    {
+        raiz = NULL;
+        return;
+    }
+    if (p->getCor() == 1 || retornaCor(p->getEsq()) == 1 || retornaCor(p->getDir()) == 1)
+    {
+        NoCor *child = p->getEsq() != NULL ? p->getEsq() : p->getDir();
+        if (p == p->getPai()->getEsq())
+        {
+            p->getPai()->setEsq(child);
+            if (child != NULL)
+            {
+                child->setPai(p->getPai());
+                child->setCor(2);
+            }
+            delete (p);
+        }
+        else
+        {
+            p->getPai()->setDir(child);
+            if (child != NULL)
+            {
+                child->setPai(p->getPai());
+                child->setCor(2);
+            }
+            delete (p);
+        }
+    }
+    else
+    {
+        NoCor *s = NULL;
+        NoCor *pai = NULL;
+        NoCor *ptr = p;
+        ptr->setCor(3);
+        while (ptr != raiz && retornaCor(ptr) == 3)
+        {
+            pai = ptr->getPai();
+            if (ptr == pai->getEsq())
+            {
+                s = pai->getDir();
+                if (retornaCor(s) == 1)
+                {
+                    s->setCor(2);
+                    pai->setCor(1);
+                    rotacionarEsquerdaRemocao(pai);
+                }
+                else
+                {
+                    if (retornaCor(s->getEsq()) == 2 && retornaCor(s->getDir()) == 2)
+                    {
+                        s->setCor(1);
+                        if(retornaCor(pai) == 1)
+                            pai->setCor(2);
+                        else
+                            pai->setCor(3);
+                        ptr = pai;
+                    }
+                    else
+                    {
+                        if (retornaCor(s->getDir()) == 2 && retornaCor(s->getEsq()) == 2)
+                        {
+                            s->getEsq()->setCor(2);
+                            s->setCor(1);
+                            rotacaoDireita(s);
+                            s = pai->getDir();
+                        }
+                        s->setCor(pai->getCor());
+                        pai->setCor(2);
+                        s->getDir()->setCor(2);
+                        rotacionarEsquerdaRemocao(pai);
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                s = pai->getEsq();
+                if (retornaCor(s) == 1)
+                {
+                    s->setCor(2);
+                    pai->setCor(1);
+                    rotacionarDireitaRemocao(pai);
+                }
+                else
+                {
+                    if (retornaCor(s->getEsq()) == 2 && retornaCor(s->getDir()) == 2)
+                    {
+                        s->setCor(1);
+                        if (retornaCor(pai) == 1)
+                            pai->setCor(2);
+                        else
+                            pai->setCor(3);
+                        ptr = pai;
+                    }
+                    else
+                    {
+                        if (retornaCor(s->getEsq()) == 2&& retornaCor(s->getDir()) == 2)
+                        {
+                            s->getDir()->setCor(2);
+                            s->setCor(1);
+                            rotacionarEsquerdaRemocao(s);
+                            s = pai->getEsq();
+                        }
+                        s->setCor(retornaCor(pai));
+                        pai->setCor(2);
+                        s->getEsq()->setCor(2);
+                        rotacionarDireitaRemocao(pai);
+                        break;
+                    }
+                }
+            }
+        }
+        if (p == p->getPai()->getEsq())
+            p->getPai()->setEsq(NULL);
+        else
+            p->getPai()->setEsq(NULL);
+        delete(p);
+        raiz->setCor(2);
+    }
+}
+/*
+NoCor* ArvVerPre::removeNoCor(NoCor *r,int key)
+{
+    if (r == NULL)
+        return r;
+
+    if (key < r->getInfo())
+        return removeNoCor(r->getEsq(), key);
+
+    if (key > r->getInfo())
+        return removeNoCor(r->getDir(), key);
+
+    if (r->getEsq() == NULL || r->getDir() == NULL)
+        return r;
+
+    NoCor *t = minNoCor(r->getDir());
+    r->setInfo(t->getInfo());
+    return removeNoCor(r->getDir(), t->getInfo());
+}
+
+void ArvVerPre::removerValorCor (int key)
+{
+    NoCor *p = removeNoCor(raiz,key);
+    removeFix(p);
+}
+*/
 
 long long unsigned ArvVerPre::calculaChave(int QuestionID, int OwnerUserID)
 {
@@ -391,63 +514,51 @@ long long unsigned ArvVerPre::calculaChave(int QuestionID, int OwnerUserID)
     return num;
 }
 
-bool ArvVerPre::buscaQuestinIDUserID(int QuestionID, int UserID)
-{
-    return this->auxBuscaQuestinIDUserID(this->raiz,QuestionID,UserID);
-}
 
-bool ArvVerPre::auxBuscaQuestinIDUserID(NoCor * p, int QuestionID, int UserID)
-{
 
-    if(p != NULL)
-    {
-        if(calculaChave(QuestionID,UserID) == p->calculaChave())
-            return true;
-        else
-        {
-            if(calculaChave(QuestionID,UserID) > p->calculaChave())
-            {
-                cout<<calculaChave(QuestionID,UserID)<<" e maior que "<<p->calculaChave()<<endl<<endl;
-                return auxBuscaQuestinIDUserID(p->getDir(),QuestionID,UserID);
-            }
-            else
-            {
-                cout<<calculaChave(QuestionID,UserID)<<" e menor que "<<p->calculaChave()<<endl<<endl;
-                return auxBuscaQuestinIDUserID(p->getEsq(),QuestionID,UserID);
-            }
-        }
-    }
-    else
-    {
-        return false;
-    }
-}
 
-bool ArvVerPre::buscaUserID(int UserID)
-{
-    this->auxBuscaUserID(this->raiz,UserID);
-}
 
-bool ArvVerPre::auxBuscaUserID(NoCor * no,int UserID)
-{
-    if(no != NULL)
-    {
-        if(UserID == no->OwnerUserID)
-            return true;
-        else
-        {
-            if(UserID > no->OwnerUserID)
-            {
-                return auxBuscaUserID(no->getDir(),UserID);
-            }
-            else
-            {
-                return auxBuscaUserID(no->getEsq(),UserID);
-            }
-        }
-    }
-    else
-    {
-        return false;
-    }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

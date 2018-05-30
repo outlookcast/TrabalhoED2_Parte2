@@ -9,39 +9,26 @@ using namespace std;
 class ArvVerPre
 {
 
-private:
+  private:
     NoCor *raiz;
 
-    bool auxBusca(NoCor * p, int c);
+    ///bool auxBusca(NoCor * p, int c);
     NoCor* libera(NoCor *p);
     NoCor* auxInsere(NoCor *p, int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title, NoCor *&noX);
     void imprimePorNivel(NoCor* p, int nivel);
     NoCor* menorSubArvDireita(NoCor *p);
-    NoCor* removeFolha(NoCor *p);
-    NoCor* remove1Filho(NoCor *p);
-    ///NoCor* auxRemove(NoCor* p, int C, NoCor *&x);
     NoCor* rotacaoEsquerda(NoCor *x);
     NoCor* rotacaoDireita(NoCor *x);
     void arrumaInsercao(NoCor *z);
-    ///void arrumaRemocao(NoCor *x);
+    NoCor *sucessor(NoCor *y);
+    void removeFix(NoCor *p);
+    NoCor *minNoCor(NoCor *p);
+    int retornaCor(NoCor *p);
+    void setColor(NoCor *p, int cor);
+    void rotacionarEsquerdaRemocao(NoCor *ptr);
+    void rotacionarDireitaRemocao(NoCor *ptr);
     long long unsigned calculaChave(int QuestionID, int OwnerUserID);
-    bool auxBuscaQuestinIDUserID(NoCor * no, int QuestionID, int UserID);
-    bool auxBuscaUserID(NoCor * no,int UserID);
 
-
-public:
-
-    ArvVerPre();
-    ~ArvVerPre();
-    void rotacaoD(int x);
-    void rotacaoE(int x);
-    bool vazia();
-    ///bool busca(int x);
-    ///void remove(int C);
-    void insere(int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title);
-    void imprime();
-    bool buscaQuestinIDUserID(int QuestionID,int UserID);
-    bool buscaUserID(int UserID);
 
     string completaString(string s)
     {
@@ -81,7 +68,18 @@ public:
         return string(aux);
     }
 
+  public:
 
+    ArvVerPre();
+    ~ArvVerPre();
+    void rotacaoD(int x);
+    void rotacaoE(int x);
+    bool vazia();
+    ///bool busca(int x);
+    void insere(int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title);
+    void imprime();
+    void removerValorCor (int key);
+    NoCor *removeNoCor(NoCor *r, int key);
 // outras operacoes
 
 };

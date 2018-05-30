@@ -1,3 +1,6 @@
+#ifndef DATA_H_INCLUDED
+#define DATA_H_INCLUDED
+
 #include <iostream>
 
 using namespace std;
@@ -29,3 +32,4 @@ public:
     string getTitle();
 
 };
+#endif // DATA_H_INCLUDED

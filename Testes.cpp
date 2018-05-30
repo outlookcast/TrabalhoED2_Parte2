@@ -43,7 +43,7 @@ void geraSaida(int N)
         arvore->insere(aux[i].getQuestionID(),aux[i].getUserID(),aux[i].getDate(),aux[i].getScore(),aux[i].getTitle());
     }
     Ticks[1] = clock();
-    double Tempo = (Ticks[1] - Ticks[0]) * 1000.0 / CLOCKS_PER_SEC;
+    long double Tempo = (Ticks[1] - Ticks[0]) * 1000.0 / CLOCKS_PER_SEC;
     ofstream saidaInsercao;
     saidaInsercao.open("saidaInsercao.txt");
     saidaInsercao<<"Testes com a AVL - Número de Elementos = "<<N<<endl;
@@ -55,9 +55,11 @@ void geraSaida(int N)
 
 void geraSaidaBusca(Data * dados, AVL * arvore, int N)
 {
-    cout<<"Iniciando testes de busca de N elementos aleatorios"<<endl;
+    geraSaidaUsuariosMaisAtivos(dados,N); ///Gera o arquivo entradaUsuariosMaisAtivos.txt para buscar os rand() % N usuários mais ativos
+    cout<<"Iniciando testes de busca de N Usuarios mais ativos"<<endl;
     clock_t Ticks[2];
     int numElementos = rand()%N;
+    vector<int> usuariosMaisAtivos = retornaUsuariosMaisAtivos(numElementos);
     Ticks[0] = clock();
     for(int i=0;i<numElementos;i++)
     {
@@ -68,14 +70,34 @@ void geraSaidaBusca(Data * dados, AVL * arvore, int N)
         if(i == (int)numElementos/2)
             cout<<"50%"<<endl;
         ///Realiza a busca dos N UserID's
-        arvore->buscaUserID(dados[i].getUserID());
+        arvore->buscaUserID(usuariosMaisAtivos[i]);
     }
     Ticks[1] = clock();
-    double Tempo = (Ticks[1] - Ticks[0]) * 1000.0 / CLOCKS_PER_SEC;
+    cout<<"Iniciando busca de N Usuarios aleatorios"<<endl;
+    double Tempo1 = (Ticks[1] - Ticks[0]) * 1000.0 / CLOCKS_PER_SEC;
+    int numAleat = rand() % N;
+    geraEntradaParaBuscaAleatoria(dados,N,numAleat);
+    vector<int> usuariosAleatorios = retornaUsuariosAleatorios(numAleat);
+    Ticks[0] = clock();
+    for(int i=0;i<numAleat;i++)
+    {
+        cout<<"dentro do for ";
+        if(i == (int)numAleat/10)
+            cout<<"10%"<<endl;
+        if(i == (int)numAleat/4)
+            cout<<"25%"<<endl;
+        if(i == (int)numAleat/2)
+            cout<<"50%"<<endl;
+        ///Realiza a busca dos N UserID's
+        arvore->buscaUserID(usuariosAleatorios[i]);
+    }
+    Ticks[1] = clock();
+    double Tempo2 = (Ticks[1] - Ticks[0]) * 1000.0 / CLOCKS_PER_SEC;
     ofstream saidaBusca;
     saidaBusca.open("saidaBusca.txt");
     saidaBusca<<"Testes com a AVL - Número de Elementos = "<<N<<endl;
-    saidaBusca<<"Tempo de Busca para "<<numElementos<<" elementos aleatórios: "<<Tempo<<" ms"<<endl;
+    saidaBusca<<"Tempo de Busca para "<<numElementos<<" Usuarios mais ativos: "<<Tempo1<<" ms"<<endl;
+    saidaBusca<<"Tempo de Busca para "<<numAleat<<" Usuarios aleatorios: "<<Tempo2<<" ms"<<endl;
     saidaBusca.close();
     geraSaidaRemocao(dados,arvore,N);
 }
@@ -98,21 +120,19 @@ void geraSaidaRemocao(Data * dados,AVL * arvore, int N)
         arvore->remove(dados[i].getQuestionID(),dados[i].getUserID(),dados[i].getDate(),dados[i].getScore(),dados[i].getTitle());
     }
     Ticks[0] = clock();
-    double Tempo = (Ticks[1] - Ticks[0]) * 1000.0 / CLOCKS_PER_SEC;
+    long double Tempo = (Ticks[1] - Ticks[0]) * 1000.0 / CLOCKS_PER_SEC;
     ofstream saidaRemocao;
     saidaRemocao.open("saidaRemocao.txt");
     saidaRemocao<<"Testes com a AVL - Número de Elementos = "<<N<<endl;
     saidaRemocao<<"Tempo de Remoção para "<<numElementos<<" elementos aleatórios: "<<Tempo<<" ms"<<endl;
     saidaRemocao.close();
-    geraSaidaUsuariosMaisAtivos(dados,N);
-    ///delete [] dados;
+    delete [] dados;
     delete arvore;
 }
 
 
 void geraSaidaUsuariosMaisAtivos(Data * data, int N)
 {
-    cout<<"FREQUÊNCIA DE USUARIOS"<<endl;
     ofstream saidaT;
     saidaT.open("entradaUsuariosMaisAtivos.txt");
     int tam = N;
@@ -156,12 +176,82 @@ void geraSaidaUsuariosMaisAtivos(Data * data, int N)
     for(int i=0;i<vetor.size();i++)
         saidaT<<array2[i].tag<<" "<<array2[i].frequencia<<endl;
 
-
     delete [] array;
     delete [] array2;
     delete hashLeitura;
-    delete [] data;
     delete [] anser;
     delete hash;
 
+}
+
+vector<int> retornaUsuariosMaisAtivos(int N)
+{
+    ifstream ip("entradaUsuariosMaisAtivos.txt");
+    if(!ip.is_open())
+    {
+        std::cout << "Não foi possível abrir o arquivo." << endl;
+    }
+    else
+    {
+        vector<int> usuarios;
+        cout<<"Lendo o arquivo entradaUsuariosMaisAtivos.txt..."<<endl;
+        int i = 0;
+        while(i < N)
+        {
+            string UserID,freq;
+            getline(ip,UserID,' ');
+            getline(ip,freq);
+            int U_ID = atoi(UserID.c_str());
+            usuarios.push_back(U_ID);
+            i++;
+        }
+        return usuarios;
+    }
+}
+
+void geraEntradaParaBuscaAleatoria(Data * dados,int N,int tam)
+{
+    int cont = 0;
+    ofstream entradaParaBuscaAleatoria;
+    entradaParaBuscaAleatoria.open("entradaBuscaAleatoria.txt");
+    HashInt * hash = new HashInt(N*3,2);
+    int cont2 = 0;
+    while(cont < tam)
+    {
+        int num = rand() % N;
+        if(hash->busca(num) == false)
+        {
+            hash->inserir(num);
+            entradaParaBuscaAleatoria<<num<<endl;
+            cont++;
+        }
+        else if(cont2 == N*100)
+            break;
+        cont2++;
+    }
+    entradaParaBuscaAleatoria.close();
+}
+
+vector<int> retornaUsuariosAleatorios(int N)
+{
+    ifstream ip("entradaBuscaAleatoria.txt");
+    if(!ip.is_open())
+    {
+        cout<<"Não foi possível abrir o arquivo."<<endl;
+    }
+    else
+    {
+        vector<int> usuarios;
+        cout<<"Lendo o arquivo entradaUsuariosMaisAtivos.txt..."<<endl;
+        int i = 0;
+        while(i < N)
+        {
+            string UserID;
+            getline(ip,UserID);
+            int U_ID = atoi(UserID.c_str());
+            usuarios.push_back(U_ID);
+            i++;
+        }
+        return usuarios;
+    }
 }

@@ -1,2 +1,2 @@
 Testes com a AVL - Número de Elementos = 100000
-Tempo de Remoção para 5209 elementos aleatórios: 7.82145e+006 ms
+Tempo de Remoção para 26555 elementos aleatórios: 7.57612e+006 ms

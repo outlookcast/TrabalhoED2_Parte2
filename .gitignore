@@ -34,6 +34,9 @@
 #Arquivos CSV
 *.csv
 
+#Arquivos TXT
+*.txt
+
 #Arquivos do CodeBlocks
 *.depend
 *.layout

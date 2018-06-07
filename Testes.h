@@ -11,4 +11,5 @@ void geraSaidaUsuariosMaisAtivos(Data * data, int N);
 vector<int> retornaUsuariosMaisAtivos(int N);
 void geraEntradaParaBuscaAleatoria(Data * dados,int N,int numAleat);
 vector<int> retornaUsuariosAleatorios(int N);
+void geraEntradaRemocao(Data * dados, int N);
 #endif // TESTES_H_INCLUDED

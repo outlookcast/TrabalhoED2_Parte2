@@ -1,3 +1,3 @@
-Testes com a AVL - Número de Elementos = 100000
-Tempo de Busca para 31085 Usuarios mais ativos: 20 ms
-Tempo de Busca para 15772 Usuarios aleatorios: 1305 ms
+Testes com a AVL - Número de Elementos = 100
+Tempo de Busca para 40 Usuarios mais ativos: 1 ms
+Tempo de Busca para 42 Usuarios aleatorios: 2 ms

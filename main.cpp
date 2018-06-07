@@ -20,8 +20,8 @@ using namespace std;
 
 int main()
 {
-    //geraSaida(100000);
-
+    geraSaida(100);
+/*
     arvoreSplay arvore;
     int tam = 500000;
     Data * dados = vetorRandomData(tam);
@@ -74,7 +74,7 @@ int main()
 
 
 */
-    delete [] dados;
+    //delete [] dados;
 
     return 0;
 }

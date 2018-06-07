@@ -26,7 +26,7 @@ void geraSaida(int N)
     entradaInsercao.open("entradaInsercao.txt");
     for(int i=0;i<N;i++)
     {
-        entradaInsercao<<aux[i].getQuestionID()<<" "<<aux[i].getUserID()<<" "<<aux[i].getDate()<<" "<<aux[i].getScore()<<" "<<aux[i].getTitle()<<endl;
+        entradaInsercao<<aux[i].getQuestionID()<<" "<<aux[i].getUserID()<<" "<<aux[i].getDate()<<" "<<aux[i].getScore()<<" "<<aux[i].getTitle();
     }
     entradaInsercao.close();
     AVL * arvore = new AVL();
@@ -99,7 +99,20 @@ void geraSaidaBusca(Data * dados, AVL * arvore, int N)
     saidaBusca<<"Tempo de Busca para "<<numElementos<<" Usuarios mais ativos: "<<Tempo1<<" ms"<<endl;
     saidaBusca<<"Tempo de Busca para "<<numAleat<<" Usuarios aleatorios: "<<Tempo2<<" ms"<<endl;
     saidaBusca.close();
+    geraEntradaRemocao(dados,N);
     geraSaidaRemocao(dados,arvore,N);
+}
+
+void geraEntradaRemocao(Data * dados, int N)
+{
+    ofstream saidaT;
+    saidaT.open("entradaRemocao.txt");
+    int num = rand() % N;
+    for(int i=0;i<num;i++)
+    {
+        saidaT<<dados[i].getQuestionID()<<" "<<dados[i].getUserID()<<" "<<dados[i].getDate()<<" "<<dados[i].getScore()<<" "<<dados[i].getTitle();
+    }
+    saidaT.close();
 }
 
 void geraSaidaRemocao(Data * dados,AVL * arvore, int N)
@@ -214,21 +227,8 @@ void geraEntradaParaBuscaAleatoria(Data * dados,int N,int tam)
     int cont = 0;
     ofstream entradaParaBuscaAleatoria;
     entradaParaBuscaAleatoria.open("entradaBuscaAleatoria.txt");
-    HashInt * hash = new HashInt(N*3,2);
-    int cont2 = 0;
-    while(cont < tam)
-    {
-        int num = rand() % N;
-        if(hash->busca(num) == false)
-        {
-            hash->inserir(num);
-            entradaParaBuscaAleatoria<<num<<endl;
-            cont++;
-        }
-        else if(cont2 == N*100)
-            break;
-        cont2++;
-    }
+    for(int i=0;i<tam;i++)
+        entradaParaBuscaAleatoria<<dados[i].getUserID()<<endl;
     entradaParaBuscaAleatoria.close();
 }
 

@@ -20,16 +20,16 @@ using namespace std;
 
 int main()
 {
-    geraSaida(100000);
-    /*
+    //geraSaida(100000);
+
     ArvVerPre arvore;
     int tam = 500000;
-    Data * dados = readFile();
-    for(int i=1000;i<1500;i++)
+    Data * dados = vetorRandomData(tam);
+    for(int i=0;i<tam-1;i++)
     {
         arvore.insere(dados[i].getQuestionID(),dados[i].getUserID(),dados[i].getDate(),dados[i].getScore(),dados[i].getTitle());
     }
-    arvore.imprime();
+    //arvore.imprime();
     /*
     for(int i=0;i<tam;i++)
     {
@@ -63,9 +63,10 @@ int main()
 
 
 
-    delete [] dados;
+
 
 */
+    delete [] dados;
 
     return 0;
 }

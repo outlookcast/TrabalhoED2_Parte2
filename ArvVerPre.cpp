@@ -95,7 +95,7 @@ void ArvVerPre::insere(int QuestionID, int OwnerUserID, string CreationDate, int
 
     raiz->setPai(NULL);
 
-    if (raiz->QuestionID != QuestionID)
+    if (raiz->calculaChave() != calculaChave(QuestionID,OwnerUserID))
         arrumaInsercao(noX);
 
     raiz->setCor(2);
@@ -105,14 +105,13 @@ NoCor *ArvVerPre::auxInsere(NoCor *p, int QuestionID, int OwnerUserID, string Cr
 {
     if (p == NULL) //Insere um nó
     {
-        p = new NoCor;
+        p = new NoCor();
 
         p->QuestionID = QuestionID;
         p->OwnerUserID = OwnerUserID;
         p->CreationDate = CreationDate;
         p->Score = Score;
         p->Title = Title;
-        p->calculaChave();
 
         p->setDir(NULL);
         p->setEsq(NULL);
@@ -270,7 +269,7 @@ void ArvVerPre::arrumaInsercao(NoCor *z)
                 else
                 {
                     if (paiAvo->getEsq() == avo)
-                        paiAvo->setDir(rotacaoEsquerda(avo));
+                        paiAvo->setEsq(rotacaoEsquerda(avo));
 
                     else
                         paiAvo->setDir(rotacaoEsquerda(avo));

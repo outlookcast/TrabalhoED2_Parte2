@@ -1,2 +1,0 @@
-Testes com a AVL - Número de Elementos = 100
-Tempo de Remoção para 18 elementos aleatórios: 5.12399e+006 ms

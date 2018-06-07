@@ -1,3 +1,0 @@
-Testes com a AVL - Número de Elementos = 100
-Tempo de Busca para 40 Usuarios mais ativos: 1 ms
-Tempo de Busca para 42 Usuarios aleatorios: 2 ms

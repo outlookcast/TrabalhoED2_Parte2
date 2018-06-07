@@ -64,6 +64,7 @@ public:
     void inserir(int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title);
     void imprime();
     int getTamanho();
+    void deletar(int QuestionID, int OwnerUserID);
     bool buscaQuestinIDUserID(int QuestionID,int UserID);
     bool buscaUserID(int UserID);
 };

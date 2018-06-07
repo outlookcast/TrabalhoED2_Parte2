@@ -78,8 +78,8 @@ class ArvVerPre
     ///bool busca(int x);
     void insere(int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title);
     void imprime();
-    void removerValorCor (int key);
-    NoCor *removeNoCor(NoCor *r, int key);
+    void removerValorCor (int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title);
+    NoCor *removeNoCor(NoCor *r, int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title);
 // outras operacoes
 
 };

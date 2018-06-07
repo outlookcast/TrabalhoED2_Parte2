@@ -268,3 +268,9 @@ noSplay * arvoreSplay::auxBuscaUserID(long long unsigned key, int UserID)
     }
     return NULL;
 }
+
+void arvoreSplay::deletar(int QuestionID, int OwnerUserID)
+{
+    long long unsigned key = calculaChave(QuestionID,OwnerUserID);
+    this->auxDeletar(key);
+}

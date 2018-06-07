@@ -90,7 +90,6 @@ NoCor* ArvVerPre::menorSubArvDireita(NoCor *p)
 void ArvVerPre::insere(int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title)
 {
     NoCor *noX = NULL;
-    int a = 0;
     raiz = this->auxInsere(raiz,QuestionID,OwnerUserID,CreationDate,Score,Title,*&noX);
 
     raiz->setPai(NULL);
@@ -475,32 +474,40 @@ void ArvVerPre::removeFix(NoCor *p)
         raiz->setCor(2);
     }
 }
-/*
-NoCor* ArvVerPre::removeNoCor(NoCor *r,int key)
+
+NoCor* ArvVerPre::removeNoCor(NoCor *r,int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title)
 {
+    long long unsigned key = calculaChave(QuestionID,OwnerUserID);
+
     if (r == NULL)
         return r;
 
-    if (key < r->getInfo())
-        return removeNoCor(r->getEsq(), key);
+    if (key < r->calculaChave())
+        return removeNoCor(r->getEsq(),QuestionID,OwnerUserID,CreationDate,Score,Title);
 
-    if (key > r->getInfo())
-        return removeNoCor(r->getDir(), key);
+    if (key > r->calculaChave())
+        return removeNoCor(r->getDir(),QuestionID,OwnerUserID,CreationDate,Score,Title);
 
     if (r->getEsq() == NULL || r->getDir() == NULL)
         return r;
 
     NoCor *t = minNoCor(r->getDir());
-    r->setInfo(t->getInfo());
-    return removeNoCor(r->getDir(), t->getInfo());
+
+    r->QuestionID = t->QuestionID;
+    r->OwnerUserID = t->OwnerUserID;
+    r->CreationDate = t->CreationDate;
+    r->Score = t->Score;
+    r->Title = t->Title;
+
+    return removeNoCor(r->getDir(),QuestionID,OwnerUserID,CreationDate,Score,Title);
 }
 
-void ArvVerPre::removerValorCor (int key)
+void ArvVerPre::removerValorCor (int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title)
 {
-    NoCor *p = removeNoCor(raiz,key);
+    NoCor *p = removeNoCor(raiz,QuestionID,OwnerUserID,CreationDate,Score,Title);
     removeFix(p);
 }
-*/
+
 
 long long unsigned ArvVerPre::calculaChave(int QuestionID, int OwnerUserID)
 {

@@ -14,6 +14,7 @@ using namespace std;
 
 void arvoreSplay::rotacaoEsquerda(noSplay *x)
 {
+    this->numRotacoes++;
     noSplay *y = x->dir;
     if(y)
     {
@@ -36,6 +37,7 @@ void arvoreSplay::rotacaoEsquerda(noSplay *x)
 
 void arvoreSplay::rotacaoDireita(noSplay *x)
 {
+    this->numRotacoes++;
     noSplay *y = x->esq;
     if(y)
     {
@@ -119,6 +121,7 @@ arvoreSplay::arvoreSplay()
 {
     raiz = NULL;
     tamanho = 0;
+    this->numRotacoes = 0;
 }
 
 void arvoreSplay::inserir(int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title)

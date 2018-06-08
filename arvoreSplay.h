@@ -8,7 +8,6 @@ private:
     noSplay *raiz;
 
     unsigned long tamanho;
-
     void rotacaoEsquerda(noSplay *x);
     void rotacaoDireita(noSplay *x);
     void splay(noSplay *x);
@@ -59,6 +58,8 @@ private:
     }
 
 public:
+
+    long long unsigned numRotacoes;
 
     arvoreSplay();
     void inserir(int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title);

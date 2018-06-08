@@ -20,7 +20,7 @@ using namespace std;
 
 int main()
 {
-    geraSaida(100);
+    geraSaida(5000);
 /*
     arvoreSplay arvore;
     int tam = 500000;

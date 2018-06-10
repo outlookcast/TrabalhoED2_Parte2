@@ -4,8 +4,17 @@
 AVL::AVL()
 {
     this->numRotacoes = 0;
+    this->fatorDeBalanceamento = 2;
     raiz = NULL;
 }
+
+AVL::AVL(int fatorDeBalanceamento)
+{
+    this->numRotacoes = 0;
+    this->fatorDeBalanceamento = fatorDeBalanceamento;
+    raiz = NULL;
+}
+
 AVL::~AVL()
 {
 
@@ -223,19 +232,19 @@ NoAVL* AVL::auxInsere(NoAVL *p, int QuestionID, int OwnerUserID, string Creation
 
         p->setBalanciamento(alturaD - alturaE);   //calcula o balanciamento
 
-        if(p->getBalanciamento() == -2) //Verifica se a árvore está desbanceada para a esquerda
+        if(p->getBalanciamento() == -this->fatorDeBalanceamento) //Verifica se a árvore está desbanceada para a esquerda
         {
             if(p->getEsq() != NULL)
-                if(p->getEsq()->getBalanciamento() == 1) //Verifica se o filho a esquerda está desbalanceado a direita
+                if(p->getEsq()->getBalanciamento() == this->fatorDeBalanceamento-1) //Verifica se o filho a esquerda está desbalanceado a direita
                     p->setEsq(rotacaoEsquerda(p->getEsq()));
 
             return rotacaoDireita(p);
 
         }
-        else if(p->getBalanciamento() == 2)//Verifica se a árvore está desbanceada para a direita
+        else if(p->getBalanciamento() == this->fatorDeBalanceamento)//Verifica se a árvore está desbanceada para a direita
         {
             if(p->getDir() != NULL)
-                if(p->getDir()->getBalanciamento() == -1)  //Verifica se o filho a direita está desbalanceado a esquerda
+                if(p->getDir()->getBalanciamento() == -this->fatorDeBalanceamento+1)  //Verifica se o filho a direita está desbalanceado a esquerda
                     p->setDir(rotacaoDireita(p->getDir()));
 
             return rotacaoEsquerda(p);
@@ -438,19 +447,19 @@ NoAVL* AVL::balanciamentoInsert(NoAVL *x)
 
     x->setBalanciamento(alturaD - alturaE);
 
-    if(x->getBalanciamento() == -2)
+    if(x->getBalanciamento() == -this->fatorDeBalanceamento)
     {
         if(x->getEsq() != NULL)
-            if(x->getEsq()->getBalanciamento() == 1)
+            if(x->getEsq()->getBalanciamento() == this->fatorDeBalanceamento-1)
                 x->setEsq(rotacaoEsquerda(x->getEsq()));
 
         return rotacaoDireita(x);
 
     }
-    else if(x->getBalanciamento() == 2)
+    else if(x->getBalanciamento() == this->fatorDeBalanceamento)
     {
         if(x->getDir() != NULL)
-            if(x->getDir()->getBalanciamento() == -1)
+            if(x->getDir()->getBalanciamento() == -this->fatorDeBalanceamento+1)
                 x->setDir(rotacaoDireita(x->getDir()));
 
         return rotacaoEsquerda(x);

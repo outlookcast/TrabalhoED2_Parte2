@@ -20,8 +20,9 @@ using namespace std;
 
 int main()
 {
-    geraSaida(5000);
-/*
+    geraSaida(500000);
+
+    /*
     ArvVerPre arvore;
     int tam = 500;
     Data * dados = vetorRandomData(tam);
@@ -38,7 +39,7 @@ int main()
     ///cout<<"fim remocao"<<endl;
     delete [] dados;
     //arvore.imprime();
-*/
+    */
 
     /*
     for(int i=0;i<tam;i++)

@@ -246,7 +246,7 @@ vector<int> retornaUsuariosAleatorios(int N)
     else
     {
         vector<int> usuarios;
-        cout<<"Lendo o arquivo entradaUsuariosMaisAtivos.txt..."<<endl;
+        cout<<"Lendo o arquivo entradaBuscaAleatoria.txt..."<<endl;
         int i = 0;
         while(ip.good())
         {
@@ -454,6 +454,104 @@ void remocaoVP(int N, ArvVerPre * vp)
     saidaRemocao<<"Tempo de Remoção para "<<array.size()<<" elementos aleatórios: "<<Tempo<<" ms"<<endl;
     saidaRemocao.close();
     delete vp;
+    insercaoAVLModificada(N);
+}
+
+void insercaoAVLModificada(int N)
+{
+    cout<<"Iniciando testes de inserção de N elementos aleatorios - AVL Modificada TREE"<<endl;
+    AVL * avl = new AVL(5);
+    vector<Data> dados = leArquivoERetornaEntrada(N);
+    clock_t Ticks[2];
+    Ticks[0] = clock();
+    ///Insercao aqui
+    for(int i=0;i<N;i++)
+    {
+        avl->insere(dados[i].getQuestionID(),dados[i].getUserID(),dados[i].getDate(),dados[i].getScore(),dados[i].getTitle());
+    }
+    Ticks[1] = clock();
+    long double Tempo = (Ticks[1] - Ticks[0]) * 1000.0 / CLOCKS_PER_SEC;
+
+    ofstream saidaInsercao;
+    saidaInsercao.open("saidaInsercaoAVLModificada.txt");
+    saidaInsercao<<"Testes com a AVL Modificada - Número de Elementos = "<<N<<endl;
+    saidaInsercao<<"Tempo de inserção: "<<Tempo<<" ms"<<endl;
+    saidaInsercao<<"Número de Rotações: "<<avl->numRotacoes<<endl;
+    saidaInsercao.close();
+    buscaAVLModificada(N,avl);
+}
+
+void buscaAVLModificada(int N, AVL * avl)
+{
+    cout<<"Iniciando testes de busca de N Usuarios mais ativos - AVL Modificada TREE"<<endl;
+    vector<int> usuariosMaisAtivos = retornaUsuariosMaisAtivos(N);
+    clock_t Ticks[4];
+    Ticks[0] = clock();
+    ///Busca dos mais ativos
+    for(int i=0;i<usuariosMaisAtivos.size();i++)
+    {
+        if(i == (int)usuariosMaisAtivos.size()/10)
+            cout<<"10%"<<endl;
+        if(i == (int)usuariosMaisAtivos.size()/4)
+            cout<<"25%"<<endl;
+        if(i == (int)usuariosMaisAtivos.size()/2)
+            cout<<"50%"<<endl;
+        avl->buscaUserID(usuariosMaisAtivos[i]);
+    }
+    Ticks[1] = clock();
+    long double Tempo1 = (Ticks[1] - Ticks[0]) * 1000.0 / CLOCKS_PER_SEC;
+    cout<<"Iniciando busca de N Usuarios aleatorios - AVL Modificada TREE"<<endl;
+    vector<int> usuarios = retornaUsuariosAleatorios(N);
+    Ticks[2] = clock();
+    for(int i=0;i<usuarios.size();i++)
+    {
+        if(i == (int)usuarios.size()/10)
+            cout<<"10%"<<endl;
+        if(i == (int)usuarios.size()/4)
+            cout<<"25%"<<endl;
+        if(i == (int)usuarios.size()/2)
+            cout<<"50%"<<endl;
+        avl->buscaUserID(usuarios[i]);
+    }
+
+    Ticks[3] = clock();
+
+    long double Tempo2 = (Ticks[3] - Ticks[2]) * 1000.0 / CLOCKS_PER_SEC;
+
+    ofstream saidaBusca;
+    saidaBusca.open("saidaBuscaAVLModificada.txt");
+    saidaBusca<<"Testes com a AVL Modificada - Número de Elementos = "<<N<<endl;
+    saidaBusca<<"Tempo de Busca para "<<usuariosMaisAtivos.size()<<" Usuarios mais ativos: "<<Tempo1<<" ms"<<endl;
+    saidaBusca<<"Tempo de Busca para "<<usuarios.size()<<" Usuarios aleatorios: "<<Tempo2<<" ms"<<endl;
+    saidaBusca.close();
+    remocaoAVLModificada(N,avl);
+}
+
+void remocaoAVLModificada(int N, AVL * avl)
+{
+    cout<<"Iniciando testes de remocao de N elementos aleatorios - AVL Modificada TREE"<<endl;
+    vector<Data> array = pegaEntradaRemocao();
+    clock_t Ticks[2];
+    Ticks[0] = clock();
+    for(int i=0;i<array.size();i++)
+    {
+        if(i == (int)array.size()/10)
+            cout<<"10%"<<endl;
+        if(i == (int)array.size()/4)
+            cout<<"25%"<<endl;
+        if(i == (int)array.size()/2)
+            cout<<"50%"<<endl;
+        ///Realiza a remoção
+        avl->remove(array[i].getQuestionID(),array[i].getUserID(),array[i].getDate(),array[i].getScore(),array[i].getTitle());
+    }
+    Ticks[1] = clock();
+    long double Tempo = (Ticks[1] - Ticks[0]) * 1000.0 / CLOCKS_PER_SEC;
+    ofstream saidaRemocao;
+    saidaRemocao.open("saidaRemocaoAVLModificada.txt");
+    saidaRemocao<<"Testes com a AVL Modificada - Número de Elementos = "<<N<<endl;
+    saidaRemocao<<"Tempo de Remoção para "<<array.size()<<" elementos aleatórios: "<<Tempo<<" ms"<<endl;
+    saidaRemocao.close();
+    delete avl;
 }
 
 

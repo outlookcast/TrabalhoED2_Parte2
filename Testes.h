@@ -22,4 +22,7 @@ void remocaoSplay(int N, arvoreSplay * splay);
 void insercaoVP(int N);
 void buscaVP(int N, ArvVerPre * vp);
 void remocaoVP(int N, ArvVerPre * vp);
+void insercaoAVLModificada(int N);
+void buscaAVLModificada(int N, AVL * avl);
+void remocaoAVLModificada(int N, AVL * avl);
 #endif // TESTES_H_INCLUDED

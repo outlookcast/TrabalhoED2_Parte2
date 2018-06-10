@@ -27,11 +27,13 @@ private:
     bool auxBuscaUserID(NoAVL * no,int UserID);
 
     long long unsigned calculaChave(int QuestionID, int OwnerUserID);
+    int fatorDeBalanceamento;
 
 
 public:
 
     AVL();
+    AVL(int fatorDeBalanceamento);
     ~AVL();
     void rotacaoD(long long unsigned x);
     void rotacaoE(long long unsigned x);

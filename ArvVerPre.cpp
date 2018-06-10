@@ -285,16 +285,6 @@ void ArvVerPre::arrumaInsercao(NoCor *z)
     }
 }
 ///REMOÇÃO
-NoCor *ArvVerPre::minNoCor(NoCor *p)
-{
-    NoCor *x = p;
-    while (x->getEsq() != NULL)
-    {
-        x = x->getEsq();
-    }
-    return x;
-}
-
 
 void ArvVerPre::rotacionarEsquerdaRemocao(NoCor *p)
 {
@@ -512,6 +502,16 @@ void ArvVerPre::removerValorCor (int QuestionID, int OwnerUserID, string Creatio
 */
 
 
+NoCor *ArvVerPre::minNoCor(NoCor *p)
+{
+    NoCor *x = p;
+    while (x->getEsq() != NULL)
+    {
+        x = x->getEsq();
+    }
+    return x;
+}
+
 NoCor *ArvVerPre::maxNoCor(NoCor *p)
 {
     NoCor *x = p;
@@ -673,39 +673,31 @@ void ArvVerPre::removeFix(NoCor *p)
 NoCor* ArvVerPre::removeNoCor(NoCor *r,int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title)
 {
     long long unsigned key = calculaChave(QuestionID,OwnerUserID);
-    while(r != NULL)
-    {
-        if (key < r->calculaChave())
-        {
-            r = r->getEsq();
-        }
-        else if (key > r->calculaChave())
-        {
-            r = r->getDir();
-        }
-        else if (r->getEsq() == NULL || r->getDir() == NULL)
-        {
-            return r;
-        }
-        else
-        {
-            NoCor *t = minNoCor(r->getDir());
 
-            int auxQuestionID = t->QuestionID;
-            int auxOwnerUserID = t->OwnerUserID;
-            string auxCreationDate = t->CreationDate;
-            int auxScore = t->Score;
-            string auxTitle = t->Title;
+    if (r == NULL)
+        return r;
+    if (key < r->calculaChave())
+        return removeNoCor(r->getEsq(), QuestionID,OwnerUserID,CreationDate,Score,Title);
+    if (key > r->calculaChave())
+        return removeNoCor(r->getDir(), QuestionID,OwnerUserID,CreationDate,Score,Title);
+    if (r->getEsq() == NULL || r->getDir() == NULL)
+        return r;
 
-            r->QuestionID = auxQuestionID;
-            r->OwnerUserID = auxOwnerUserID;
-            r->CreationDate = auxCreationDate;
-            r->Score = auxScore;
-            r->Title = auxTitle;
+    NoCor *t = minNoCor(r->getDir());
 
-            return t;
-        }
-    }
+    int auxQuestionID = t->QuestionID;
+    int auxOwnerUserID = t->OwnerUserID;
+    string auxCreationDate = t->CreationDate;
+    int auxScore = t->Score;
+    string auxTitle = t->Title;
+
+    r->QuestionID = auxQuestionID;
+    r->OwnerUserID = auxOwnerUserID;
+    r->CreationDate = auxCreationDate;
+    r->Score = auxScore;
+    r->Title = auxTitle;
+
+    return removeNoCor(r->getDir(), t->QuestionID,t->OwnerUserID,t->CreationDate,t->Score,t->Title);
 
 }
 

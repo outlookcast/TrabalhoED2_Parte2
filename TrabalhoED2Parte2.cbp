@@ -47,6 +47,8 @@
 		<Unit filename="HashBuscaAnswer.h" />
 		<Unit filename="HashInt.cpp" />
 		<Unit filename="HashInt.h" />
+		<Unit filename="MinhaArvore.cpp" />
+		<Unit filename="MinhaArvore.h" />
 		<Unit filename="NoAVL.h" />
 		<Unit filename="NoCor.h" />
 		<Unit filename="Testes.cpp" />

@@ -152,7 +152,7 @@ void ArvVerPre::imprimePorNivel(NoCor *p, int nivel)
         cout << "(" << nivel << ")";
         for (int i = 1; i <= nivel; i++)
             cout << "--";
-        cout << p->calculaChave() << " " << p->getCor() << endl;
+        cout << p->QuestionID << " " << p->getCor() << endl;
         imprimePorNivel(p->getEsq(), nivel + 1);
         imprimePorNivel(p->getDir(), nivel + 1);
     }
@@ -349,7 +349,7 @@ void ArvVerPre::setColor(NoCor *p, int cor)
 {
     p->setCor(cor);
 }
-
+/*
 void ArvVerPre::removeFix(NoCor *p)
 {
     if (p == NULL)
@@ -504,6 +504,212 @@ NoCor* ArvVerPre::removeNoCor(NoCor *r,int QuestionID, int OwnerUserID, string C
 }
 
 void ArvVerPre::removerValorCor (int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title)
+{
+    NoCor *p = removeNoCor(raiz,QuestionID,OwnerUserID,CreationDate,Score,Title);
+    removeFix(p);
+}
+
+*/
+
+
+NoCor *ArvVerPre::maxNoCor(NoCor *p)
+{
+    NoCor *x = p;
+    while (x->getDir() != NULL)
+    {
+        x = x->getDir();
+    }
+    return x;
+}
+
+
+
+void ArvVerPre::removeFix(NoCor *p)
+{
+    if (p == NULL)
+        return;
+    if (p == raiz)
+    {
+        raiz = NULL;
+        return;
+    }
+    if (p->getCor() == 1 || retornaCor(p->getEsq()) == 1 || retornaCor(p->getDir()) == 1)
+    {
+        NoCor *child = p->getEsq() != NULL ? p->getEsq() : p->getDir();
+        if (p == p->getPai()->getEsq())
+        {
+            p->getPai()->setEsq(child);
+            if (child != NULL)
+            {
+                child->setPai(p->getPai());
+                child->setCor(2);
+            }
+            delete (p);
+        }
+        else
+        {
+            p->getPai()->setDir(child);
+            if (child != NULL)
+            {
+                child->setPai(p->getPai());
+                child->setCor(2);
+            }
+            delete (p);
+        }
+    }
+    else
+    {
+        NoCor *s = NULL;
+        NoCor *pai = NULL;
+        NoCor *ptr = p;
+        ptr->setCor(3);
+        while (ptr != raiz && retornaCor(ptr) == 3)
+        {
+            pai = ptr->getPai();
+            if (ptr == pai->getEsq())
+            {
+                s = pai->getDir();
+                if (retornaCor(s) == 1)
+                {
+                    s->setCor(2);
+                    pai->setCor(1);
+                    rotacionarEsquerdaRemocao(pai);
+                }
+                else
+                {
+                    ///inicio
+                    if(s == NULL)
+                    {
+                        if(retornaCor(pai) == 1)
+                            pai->setCor(2);
+                        else
+                            pai->setCor(3);
+                        ptr = pai;
+                    }
+                    ///fim
+                    else if (retornaCor(s->getEsq()) == 2 && retornaCor(s->getDir()) == 2)
+                    {
+                        s->setCor(1);
+                        if(retornaCor(pai) == 1)
+                            pai->setCor(2);
+                        else
+                            pai->setCor(3);
+                        ptr = pai;
+                    }
+                    else
+                    {
+                        if (retornaCor(s->getDir()) == 2)
+                        {
+                            s->getEsq()->setCor(2);
+                            s->setCor(1);
+                            rotacionarDireitaRemocao(s);
+                            s = pai->getDir();
+                        }
+                        s->setCor(pai->getCor());
+                        pai->setCor(2);
+                        s->getDir()->setCor(2);
+                        rotacionarEsquerdaRemocao(pai);
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                s = pai->getEsq();
+                if (retornaCor(s) == 1)
+                {
+                    s->setCor(2);
+                    pai->setCor(1);
+                    rotacionarDireitaRemocao(pai);
+                }
+                else
+                {
+                    ///inicio
+                    if(s==NULL)
+                    {
+                        if (retornaCor(pai) == 1)
+                            pai->setCor(2);
+                        else
+                            pai->setCor(3);
+                        ptr = pai;
+                    }
+                    ///fim
+                    else if (retornaCor(s->getEsq()) == 2 && retornaCor(s->getDir()) == 2)
+                    {
+                        s->setCor(1);
+                        if (retornaCor(pai) == 1)
+                            pai->setCor(2);
+                        else
+                            pai->setCor(3);
+                        ptr = pai;
+                    }
+                    else
+                    {
+                        if (retornaCor(s->getEsq()) == 2)
+                        {
+                            s->getDir()->setCor(2);
+                            s->setCor(1);
+                            rotacionarEsquerdaRemocao(s);
+                            s = pai->getEsq();
+                        }
+                        s->setCor(retornaCor(pai));
+                        pai->setCor(2);
+                        s->getEsq()->setCor(2);
+                        rotacionarDireitaRemocao(pai);
+                        break;
+                    }
+                }
+            }
+        }
+        if (p == p->getPai()->getEsq())
+            p->getPai()->setEsq(NULL);
+        else
+            p->getPai()->setDir(NULL);
+        delete(p);
+        raiz->setCor(2);
+    }
+}
+
+NoCor* ArvVerPre::removeNoCor(NoCor *r,int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title)
+{
+    long long unsigned key = calculaChave(QuestionID,OwnerUserID);
+    while(r != NULL)
+    {
+        if (key < r->calculaChave())
+        {
+            r = r->getEsq();
+        }
+        else if (key > r->calculaChave())
+        {
+            r = r->getDir();
+        }
+        else if (r->getEsq() == NULL || r->getDir() == NULL)
+        {
+            return r;
+        }
+        else
+        {
+            NoCor *t = minNoCor(r->getDir());
+
+            int auxQuestionID = t->QuestionID;
+            int auxOwnerUserID = t->OwnerUserID;
+            string auxCreationDate = t->CreationDate;
+            int auxScore = t->Score;
+            string auxTitle = t->Title;
+
+            r->QuestionID = auxQuestionID;
+            r->OwnerUserID = auxOwnerUserID;
+            r->CreationDate = auxCreationDate;
+            r->Score = auxScore;
+            r->Title = auxTitle;
+
+            return t;
+        }
+    }
+
+}
+
+void ArvVerPre::removerValorCor(int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title)
 {
     NoCor *p = removeNoCor(raiz,QuestionID,OwnerUserID,CreationDate,Score,Title);
     removeFix(p);

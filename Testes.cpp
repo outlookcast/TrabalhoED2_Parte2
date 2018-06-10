@@ -46,7 +46,14 @@ void geraSaida(int N)
     Ticks[1] = clock();
     long double Tempo = (Ticks[1] - Ticks[0]) * 1000.0 / CLOCKS_PER_SEC;
     ofstream saidaInsercao;
-    saidaInsercao.open("saidaInsercaoAVL.txt");
+
+    string inicioString("saidaInsercaoAVL");
+    stringstream ss;
+	ss << N;
+    string meioString(ss.str());
+    string finalString(".txt");
+    string stringSalvarArquivo = inicioString+meioString+finalString;
+    saidaInsercao.open(stringSalvarArquivo.c_str());
     saidaInsercao<<"Testes com a AVL - Número de Elementos = "<<N<<endl;
     saidaInsercao<<"Tempo de inserção: "<<Tempo<<" ms"<<endl;
     saidaInsercao<<"Número de Rotações: "<<arvore->numRotacoes<<endl;
@@ -94,7 +101,13 @@ void geraSaidaBusca(Data * dados, AVL * arvore, int N)
     Ticks[1] = clock();
     double Tempo2 = (Ticks[1] - Ticks[0]) * 1000.0 / CLOCKS_PER_SEC;
     ofstream saidaBusca;
-    saidaBusca.open("saidaBuscaAVL.txt");
+    string inicioString("saidaBuscaAVL");
+    stringstream ss;
+	ss << N;
+    string meioString(ss.str());
+    string finalString(".txt");
+    string stringSalvarArquivo = inicioString+meioString+finalString;
+    saidaBusca.open(stringSalvarArquivo.c_str());
     saidaBusca<<"Testes com a AVL - Número de Elementos = "<<N<<endl;
     saidaBusca<<"Tempo de Busca para "<<usuariosMaisAtivos.size()<<" Usuarios mais ativos: "<<Tempo1<<" ms"<<endl;
     saidaBusca<<"Tempo de Busca para "<<usuariosAleatorios.size()<<" Usuarios aleatorios: "<<Tempo2<<" ms"<<endl;
@@ -133,10 +146,18 @@ void geraSaidaRemocao(Data * dados,AVL * arvore, int N)
         ///Realiza a remoção
         arvore->remove(array[i].getQuestionID(),array[i].getUserID(),array[i].getDate(),array[i].getScore(),array[i].getTitle());
     }
-    Ticks[0] = clock();
+    Ticks[1] = clock();
     long double Tempo = (Ticks[1] - Ticks[0]) * 1000.0 / CLOCKS_PER_SEC;
     ofstream saidaRemocao;
-    saidaRemocao.open("saidaRemocaoAVL.txt");
+
+    string inicioString("saidaRemocaoAVL");
+    stringstream ss;
+	ss << N;
+    string meioString(ss.str());
+    string finalString(".txt");
+    string stringSalvarArquivo = inicioString+meioString+finalString;
+
+    saidaRemocao.open(stringSalvarArquivo.c_str());
     saidaRemocao<<"Testes com a AVL - Número de Elementos = "<<N<<endl;
     saidaRemocao<<"Tempo de Remoção para "<<numElementos<<" elementos aleatórios: "<<Tempo<<" ms"<<endl;
     saidaRemocao.close();
@@ -276,7 +297,16 @@ void insercaoSplay(int N)
     long double Tempo = (Ticks[1] - Ticks[0]) * 1000.0 / CLOCKS_PER_SEC;
 
     ofstream saidaInsercao;
-    saidaInsercao.open("saidaInsercaoSplay.txt");
+
+    string inicioString("saidaInsercaoSplay");
+    stringstream ss;
+	ss << N;
+    string meioString(ss.str());
+    string finalString(".txt");
+    string stringSalvarArquivo = inicioString+meioString+finalString;
+
+
+    saidaInsercao.open(stringSalvarArquivo.c_str());
     saidaInsercao<<"Testes com a Splay - Número de Elementos = "<<N<<endl;
     saidaInsercao<<"Tempo de inserção: "<<Tempo<<" ms"<<endl;
     saidaInsercao<<"Número de Rotações: "<<splay->numRotacoes<<endl;
@@ -322,7 +352,17 @@ void buscaSplay(int N, arvoreSplay * splay)
     long double Tempo2 = (Ticks[3] - Ticks[2]) * 1000.0 / CLOCKS_PER_SEC;
 
     ofstream saidaBusca;
-    saidaBusca.open("saidaBuscaSplay.txt");
+
+
+    string inicioString("saidaBuscaSplay");
+    stringstream ss;
+	ss << N;
+    string meioString(ss.str());
+    string finalString(".txt");
+    string stringSalvarArquivo = inicioString+meioString+finalString;
+
+
+    saidaBusca.open(stringSalvarArquivo.c_str());
     saidaBusca<<"Testes com a Splay - Número de Elementos = "<<N<<endl;
     saidaBusca<<"Tempo de Busca para "<<usuariosMaisAtivos.size()<<" Usuarios mais ativos: "<<Tempo1<<" ms"<<endl;
     saidaBusca<<"Tempo de Busca para "<<usuarios.size()<<" Usuarios aleatorios: "<<Tempo2<<" ms"<<endl;
@@ -350,7 +390,17 @@ void remocaoSplay(int N, arvoreSplay * splay)
     Ticks[1] = clock();
     long double Tempo = (Ticks[1] - Ticks[0]) * 1000.0 / CLOCKS_PER_SEC;
     ofstream saidaRemocao;
-    saidaRemocao.open("saidaRemocaoSplay.txt");
+
+
+    string inicioString("saidaRemocaoSplay");
+    stringstream ss;
+	ss << N;
+    string meioString(ss.str());
+    string finalString(".txt");
+    string stringSalvarArquivo = inicioString+meioString+finalString;
+
+
+    saidaRemocao.open(stringSalvarArquivo.c_str());
     saidaRemocao<<"Testes com a Splay - Número de Elementos = "<<N<<endl;
     saidaRemocao<<"Tempo de Remoção para "<<array.size()<<" elementos aleatórios: "<<Tempo<<" ms"<<endl;
     saidaRemocao.close();
@@ -375,7 +425,17 @@ void insercaoVP(int N)
     long double Tempo = (Ticks[1] - Ticks[0]) * 1000.0 / CLOCKS_PER_SEC;
 
     ofstream saidaInsercao;
-    saidaInsercao.open("saidaInsercaoVP.txt");
+
+
+    string inicioString("saidaInsercaoVP");
+    stringstream ss;
+	ss << N;
+    string meioString(ss.str());
+    string finalString(".txt");
+    string stringSalvarArquivo = inicioString+meioString+finalString;
+
+
+    saidaInsercao.open(stringSalvarArquivo.c_str());
     saidaInsercao<<"Testes com a VP - Número de Elementos = "<<N<<endl;
     saidaInsercao<<"Tempo de inserção: "<<Tempo<<" ms"<<endl;
     saidaInsercao<<"Número de Rotações: "<<vp->numRotacoes<<endl;
@@ -421,7 +481,17 @@ void buscaVP(int N, ArvVerPre * vp)
     long double Tempo2 = (Ticks[3] - Ticks[2]) * 1000.0 / CLOCKS_PER_SEC;
 
     ofstream saidaBusca;
-    saidaBusca.open("saidaBuscaVP.txt");
+
+
+    string inicioString("saidaBuscaVP");
+    stringstream ss;
+	ss << N;
+    string meioString(ss.str());
+    string finalString(".txt");
+    string stringSalvarArquivo = inicioString+meioString+finalString;
+
+
+    saidaBusca.open(stringSalvarArquivo.c_str());
     saidaBusca<<"Testes com a VP - Número de Elementos = "<<N<<endl;
     saidaBusca<<"Tempo de Busca para "<<usuariosMaisAtivos.size()<<" Usuarios mais ativos: "<<Tempo1<<" ms"<<endl;
     saidaBusca<<"Tempo de Busca para "<<usuarios.size()<<" Usuarios aleatorios: "<<Tempo2<<" ms"<<endl;
@@ -444,12 +514,22 @@ void remocaoVP(int N, ArvVerPre * vp)
         if(i == (int)array.size()/2)
             cout<<"50%"<<endl;
         ///Realiza a remoção
-        ///vp->deletar(array[i].getQuestionID(),array[i].getUserID());
+        vp->removerValorCor(array[i].getQuestionID(),array[i].getUserID(),array[i].getDate(),array[i].getScore(),array[i].getTitle());
     }
     Ticks[1] = clock();
     long double Tempo = (Ticks[1] - Ticks[0]) * 1000.0 / CLOCKS_PER_SEC;
     ofstream saidaRemocao;
-    saidaRemocao.open("saidaRemocaoVP.txt");
+
+
+    string inicioString("saidaRemocaoVP");
+    stringstream ss;
+	ss << N;
+    string meioString(ss.str());
+    string finalString(".txt");
+    string stringSalvarArquivo = inicioString+meioString+finalString;
+
+
+    saidaRemocao.open(stringSalvarArquivo.c_str());
     saidaRemocao<<"Testes com a VP - Número de Elementos = "<<N<<endl;
     saidaRemocao<<"Tempo de Remoção para "<<array.size()<<" elementos aleatórios: "<<Tempo<<" ms"<<endl;
     saidaRemocao.close();
@@ -473,7 +553,17 @@ void insercaoAVLModificada(int N)
     long double Tempo = (Ticks[1] - Ticks[0]) * 1000.0 / CLOCKS_PER_SEC;
 
     ofstream saidaInsercao;
-    saidaInsercao.open("saidaInsercaoAVLModificada.txt");
+
+
+    string inicioString("saidaInsercaoAVLModificada");
+    stringstream ss;
+	ss << N;
+    string meioString(ss.str());
+    string finalString(".txt");
+    string stringSalvarArquivo = inicioString+meioString+finalString;
+
+
+    saidaInsercao.open(stringSalvarArquivo.c_str());
     saidaInsercao<<"Testes com a AVL Modificada - Número de Elementos = "<<N<<endl;
     saidaInsercao<<"Tempo de inserção: "<<Tempo<<" ms"<<endl;
     saidaInsercao<<"Número de Rotações: "<<avl->numRotacoes<<endl;
@@ -519,7 +609,17 @@ void buscaAVLModificada(int N, AVL * avl)
     long double Tempo2 = (Ticks[3] - Ticks[2]) * 1000.0 / CLOCKS_PER_SEC;
 
     ofstream saidaBusca;
-    saidaBusca.open("saidaBuscaAVLModificada.txt");
+
+
+    string inicioString("saidaBuscaAVLModificada");
+    stringstream ss;
+	ss << N;
+    string meioString(ss.str());
+    string finalString(".txt");
+    string stringSalvarArquivo = inicioString+meioString+finalString;
+
+
+    saidaBusca.open(stringSalvarArquivo.c_str());
     saidaBusca<<"Testes com a AVL Modificada - Número de Elementos = "<<N<<endl;
     saidaBusca<<"Tempo de Busca para "<<usuariosMaisAtivos.size()<<" Usuarios mais ativos: "<<Tempo1<<" ms"<<endl;
     saidaBusca<<"Tempo de Busca para "<<usuarios.size()<<" Usuarios aleatorios: "<<Tempo2<<" ms"<<endl;
@@ -547,7 +647,17 @@ void remocaoAVLModificada(int N, AVL * avl)
     Ticks[1] = clock();
     long double Tempo = (Ticks[1] - Ticks[0]) * 1000.0 / CLOCKS_PER_SEC;
     ofstream saidaRemocao;
-    saidaRemocao.open("saidaRemocaoAVLModificada.txt");
+
+
+    string inicioString("saidaRemocaoAVLModificada");
+    stringstream ss;
+	ss << N;
+    string meioString(ss.str());
+    string finalString(".txt");
+    string stringSalvarArquivo = inicioString+meioString+finalString;
+
+
+    saidaRemocao.open(stringSalvarArquivo.c_str());
     saidaRemocao<<"Testes com a AVL Modificada - Número de Elementos = "<<N<<endl;
     saidaRemocao<<"Tempo de Remoção para "<<array.size()<<" elementos aleatórios: "<<Tempo<<" ms"<<endl;
     saidaRemocao.close();

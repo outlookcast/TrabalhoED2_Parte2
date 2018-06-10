@@ -23,6 +23,7 @@ class ArvVerPre
     NoCor *sucessor(NoCor *y);
     void removeFix(NoCor *p);
     NoCor *minNoCor(NoCor *p);
+    NoCor *maxNoCor(NoCor *p);
     int retornaCor(NoCor *p);
     void setColor(NoCor *p, int cor);
     void rotacionarEsquerdaRemocao(NoCor *ptr);

@@ -14,70 +14,30 @@
 #include "ArvVerPre.h"
 #include <time.h>
 #include "Testes.h"
-
+#include <fstream>
 using namespace std;
 
 
 int main()
 {
-    geraSaida(500000);
-
-    /*
-    ArvVerPre arvore;
-    int tam = 500;
-    Data * dados = vetorRandomData(tam);
-    for(int i=0;i<tam;i++)
+    ifstream ip("entrada.txt");
+    string numString;
+    if(!ip.is_open())
     {
-        arvore.insere(dados[i].getQuestionID(),dados[i].getUserID(),dados[i].getDate(),dados[i].getScore(),dados[i].getTitle());
+        cout<<"Não foi possível abrir o arquivo entrada.txt"<<endl;
     }
-    cout<<"fim insercao"<<endl;
-    for(int i=0;i<tam;i++)
+    else
     {
-        cout<<arvore.buscaUserID(dados[i].getUserID())<<endl;
+        while(ip.good())
+        {
+            getline(ip,numString);
+            int num = atoi(numString.c_str());
+            cout<<"INICIANDO TESTES PARA N = "+numString<<endl<<endl;
+            geraSaida(num);
+        }
+        ip.close();
     }
-    ///arvore.imprime();
-    ///cout<<"fim remocao"<<endl;
-    delete [] dados;
-    //arvore.imprime();
-    */
 
-    /*
-    for(int i=0;i<tam;i++)
-    {
-        if(i == (int)tam/10)
-            cout<<"10%"<<endl;
-        else if(i == (int)tam/4)
-            cout<<"25%"<<endl;
-        else if(i == (int)tam/2)
-            cout<<"50%"<<endl;
-        arvore.insere(dados[i].getQuestionID(),dados[i].getUserID(),dados[i].getDate(),dados[i].getScore(),dados[i].getTitle());
-    }
-    cout<<"Fim da insercao"<<endl;
-    for(int i=0;i<tam;i++)
-    {
-        arvore.buscaUserID(dados[i].getUserID());
-
-        if(i == (int)tam/10)
-            cout<<"10%"<<endl;
-        else if(i == (int)tam/4)
-            cout<<"25%"<<endl;
-        else if(i == (int)tam/2)
-            cout<<"50%"<<endl;
-    }
-    tf = clock();
-    double tempo_gasto = ( (double) (tf - t0) ) / CLOCKS_PER_SEC;
-    cout<<"Tempo gasto: "<<tempo_gasto<<endl;
-    cout<<endl;
-    //arvore.imprime();
-    cout<<endl<<endl;
-    cout<<"Inicio da busca"<<endl;
-
-
-
-
-
-*/
-    //delete [] dados;
 
     return 0;
 }

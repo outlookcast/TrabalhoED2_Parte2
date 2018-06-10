@@ -17,6 +17,7 @@ private:
     long long unsigned calculaChave(int QuestionID, int OwnerUserID);
     void auxDeletar(long long unsigned key);
     noSplay * auxBusca(long long unsigned key);
+    void libera(noSplay * no);
     void imprimeAux(noSplay *x, int nivel);
     noSplay * auxBuscaUserID(long long unsigned key,int UserID);
     string completaString(string s)
@@ -62,6 +63,7 @@ public:
     long long unsigned numRotacoes;
 
     arvoreSplay();
+    ~arvoreSplay();
     void inserir(int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title);
     void imprime();
     int getTamanho();

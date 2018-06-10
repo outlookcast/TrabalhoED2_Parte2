@@ -28,7 +28,7 @@ class ArvVerPre
     void rotacionarEsquerdaRemocao(NoCor *ptr);
     void rotacionarDireitaRemocao(NoCor *ptr);
     long long unsigned calculaChave(int QuestionID, int OwnerUserID);
-
+    bool auxBuscaUserID(NoCor * no,int UserID);
 
     string completaString(string s)
     {
@@ -69,7 +69,7 @@ class ArvVerPre
     }
 
   public:
-
+    bool buscaUserID(int UserID);
     ArvVerPre();
     ~ArvVerPre();
     void rotacaoD(int x);
@@ -80,6 +80,7 @@ class ArvVerPre
     void imprime();
     void removerValorCor (int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title);
     NoCor *removeNoCor(NoCor *r, int QuestionID, int OwnerUserID, string CreationDate, int Score, string Title);
+    long long unsigned numRotacoes;
 // outras operacoes
 
 };

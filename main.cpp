@@ -22,22 +22,24 @@ int main()
 {
     geraSaida(5000);
 /*
-    arvoreSplay arvore;
-    int tam = 500000;
+    ArvVerPre arvore;
+    int tam = 500;
     Data * dados = vetorRandomData(tam);
     for(int i=0;i<tam;i++)
     {
-        arvore.inserir(dados[i].getQuestionID(),dados[i].getUserID(),dados[i].getDate(),dados[i].getScore(),dados[i].getTitle());
+        arvore.insere(dados[i].getQuestionID(),dados[i].getUserID(),dados[i].getDate(),dados[i].getScore(),dados[i].getTitle());
     }
-    //arvore.imprime();
     cout<<"fim insercao"<<endl;
     for(int i=0;i<tam;i++)
     {
-        arvore.deletar(dados[i].getQuestionID(),dados[i].getUserID());
+        cout<<arvore.buscaUserID(dados[i].getUserID())<<endl;
     }
-    arvore.imprime();
-    cout<<"fim remocao"<<endl;
+    ///arvore.imprime();
+    ///cout<<"fim remocao"<<endl;
+    delete [] dados;
     //arvore.imprime();
+*/
+
     /*
     for(int i=0;i<tam;i++)
     {

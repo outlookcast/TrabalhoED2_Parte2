@@ -4,6 +4,7 @@
 #include "AVL.h"
 #include "Data.h"
 #include "arvoreSplay.h"
+#include "ArvVerPre.h"
 
 void geraSaida(int N);
 void geraSaidaBusca(Data * dados,AVL * arvore, int N);
@@ -18,4 +19,7 @@ void insercaoSplay(int N);
 void buscaSplay(int N, arvoreSplay * splay);
 vector<Data> pegaEntradaRemocao();
 void remocaoSplay(int N, arvoreSplay * splay);
+void insercaoVP(int N);
+void buscaVP(int N, ArvVerPre * vp);
+void remocaoVP(int N, ArvVerPre * vp);
 #endif // TESTES_H_INCLUDED

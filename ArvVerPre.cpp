@@ -3,7 +3,7 @@
 
 ArvVerPre::ArvVerPre()
 {
-
+    this->numRotacoes = 0;
     raiz = NULL;
 }
 ArvVerPre::~ArvVerPre()
@@ -159,7 +159,7 @@ void ArvVerPre::imprimePorNivel(NoCor *p, int nivel)
 }
 NoCor *ArvVerPre::rotacaoEsquerda(NoCor *x)
 {
-
+    this->numRotacoes++;
     NoCor *novaRaiz = x->getDir();
 
     novaRaiz->setPai(x->getPai());
@@ -176,6 +176,7 @@ NoCor *ArvVerPre::rotacaoEsquerda(NoCor *x)
 
 NoCor *ArvVerPre::rotacaoDireita(NoCor *x)
 {
+    this->numRotacoes++;
     NoCor *novaRaiz = x->getEsq();
 
     novaRaiz->setPai(x->getPai());
@@ -520,7 +521,34 @@ long long unsigned ArvVerPre::calculaChave(int QuestionID, int OwnerUserID)
     return num;
 }
 
+bool ArvVerPre::buscaUserID(int UserID)
+{
+    this->auxBuscaUserID(this->raiz,UserID);
+}
 
+bool ArvVerPre::auxBuscaUserID(NoCor * no,int UserID)
+{
+    if(no != NULL)
+    {
+        if(UserID == no->OwnerUserID)
+            return true;
+        else
+        {
+            if(UserID > no->OwnerUserID)
+            {
+                return auxBuscaUserID(no->getDir(),UserID);
+            }
+            else
+            {
+                return auxBuscaUserID(no->getEsq(),UserID);
+            }
+        }
+    }
+    else
+    {
+        return false;
+    }
+}
 
 
 

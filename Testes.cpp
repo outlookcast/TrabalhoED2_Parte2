@@ -62,13 +62,13 @@ void geraSaidaBusca(Data * dados, AVL * arvore, int N)
     int numElementos = rand()%N;
     vector<int> usuariosMaisAtivos = retornaUsuariosMaisAtivos(numElementos);
     Ticks[0] = clock();
-    for(int i=0;i<numElementos;i++)
+    for(int i=0;i<usuariosMaisAtivos.size();i++)
     {
-        if(i == (int)numElementos/10)
+        if(i == (int)usuariosMaisAtivos.size()/10)
             cout<<"10%"<<endl;
-        if(i == (int)numElementos/4)
+        if(i == (int)usuariosMaisAtivos.size()/4)
             cout<<"25%"<<endl;
-        if(i == (int)numElementos/2)
+        if(i == (int)usuariosMaisAtivos.size()/2)
             cout<<"50%"<<endl;
         ///Realiza a busca dos N UserID's
         arvore->buscaUserID(usuariosMaisAtivos[i]);
@@ -355,8 +355,107 @@ void remocaoSplay(int N, arvoreSplay * splay)
     saidaRemocao<<"Tempo de Remoção para "<<array.size()<<" elementos aleatórios: "<<Tempo<<" ms"<<endl;
     saidaRemocao.close();
     delete splay;
+    insercaoVP(N);
 
 }
+
+void insercaoVP(int N)
+{
+    cout<<"Iniciando testes de inserção de N elementos aleatorios - RED-BLACK TREE"<<endl;
+    ArvVerPre * vp = new ArvVerPre();
+    vector<Data> dados = leArquivoERetornaEntrada(N);
+    clock_t Ticks[2];
+    Ticks[0] = clock();
+    ///Insercao aqui
+    for(int i=0;i<N;i++)
+    {
+        vp->insere(dados[i].getQuestionID(),dados[i].getUserID(),dados[i].getDate(),dados[i].getScore(),dados[i].getTitle());
+    }
+    Ticks[1] = clock();
+    long double Tempo = (Ticks[1] - Ticks[0]) * 1000.0 / CLOCKS_PER_SEC;
+
+    ofstream saidaInsercao;
+    saidaInsercao.open("saidaInsercaoVP.txt");
+    saidaInsercao<<"Testes com a VP - Número de Elementos = "<<N<<endl;
+    saidaInsercao<<"Tempo de inserção: "<<Tempo<<" ms"<<endl;
+    saidaInsercao<<"Número de Rotações: "<<vp->numRotacoes<<endl;
+    saidaInsercao.close();
+    buscaVP(N,vp);
+}
+
+void buscaVP(int N, ArvVerPre * vp)
+{
+    cout<<"Iniciando testes de busca de N Usuarios mais ativos - RED-BLACK TREE"<<endl;
+    vector<int> usuariosMaisAtivos = retornaUsuariosMaisAtivos(N);
+    clock_t Ticks[4];
+    Ticks[0] = clock();
+    ///Busca dos mais ativos
+    for(int i=0;i<usuariosMaisAtivos.size();i++)
+    {
+        if(i == (int)usuariosMaisAtivos.size()/10)
+            cout<<"10%"<<endl;
+        if(i == (int)usuariosMaisAtivos.size()/4)
+            cout<<"25%"<<endl;
+        if(i == (int)usuariosMaisAtivos.size()/2)
+            cout<<"50%"<<endl;
+        vp->buscaUserID(usuariosMaisAtivos[i]);
+    }
+    Ticks[1] = clock();
+    long double Tempo1 = (Ticks[1] - Ticks[0]) * 1000.0 / CLOCKS_PER_SEC;
+    cout<<"Iniciando busca de N Usuarios aleatorios - RED-BLACK TREE"<<endl;
+    vector<int> usuarios = retornaUsuariosAleatorios(N);
+    Ticks[2] = clock();
+    for(int i=0;i<usuarios.size();i++)
+    {
+        if(i == (int)usuarios.size()/10)
+            cout<<"10%"<<endl;
+        if(i == (int)usuarios.size()/4)
+            cout<<"25%"<<endl;
+        if(i == (int)usuarios.size()/2)
+            cout<<"50%"<<endl;
+        vp->buscaUserID(usuarios[i]);
+    }
+
+    Ticks[3] = clock();
+
+    long double Tempo2 = (Ticks[3] - Ticks[2]) * 1000.0 / CLOCKS_PER_SEC;
+
+    ofstream saidaBusca;
+    saidaBusca.open("saidaBuscaVP.txt");
+    saidaBusca<<"Testes com a VP - Número de Elementos = "<<N<<endl;
+    saidaBusca<<"Tempo de Busca para "<<usuariosMaisAtivos.size()<<" Usuarios mais ativos: "<<Tempo1<<" ms"<<endl;
+    saidaBusca<<"Tempo de Busca para "<<usuarios.size()<<" Usuarios aleatorios: "<<Tempo2<<" ms"<<endl;
+    saidaBusca.close();
+    remocaoVP(N,vp);
+}
+
+void remocaoVP(int N, ArvVerPre * vp)
+{
+    cout<<"Iniciando testes de remocao de N elementos aleatorios - RED-BLACK TREE"<<endl;
+    vector<Data> array = pegaEntradaRemocao();
+    clock_t Ticks[2];
+    Ticks[0] = clock();
+    for(int i=0;i<array.size();i++)
+    {
+        if(i == (int)array.size()/10)
+            cout<<"10%"<<endl;
+        if(i == (int)array.size()/4)
+            cout<<"25%"<<endl;
+        if(i == (int)array.size()/2)
+            cout<<"50%"<<endl;
+        ///Realiza a remoção
+        ///vp->deletar(array[i].getQuestionID(),array[i].getUserID());
+    }
+    Ticks[1] = clock();
+    long double Tempo = (Ticks[1] - Ticks[0]) * 1000.0 / CLOCKS_PER_SEC;
+    ofstream saidaRemocao;
+    saidaRemocao.open("saidaRemocaoVP.txt");
+    saidaRemocao<<"Testes com a VP - Número de Elementos = "<<N<<endl;
+    saidaRemocao<<"Tempo de Remoção para "<<array.size()<<" elementos aleatórios: "<<Tempo<<" ms"<<endl;
+    saidaRemocao.close();
+    delete vp;
+}
+
 
 vector<Data> pegaEntradaRemocao()
 {

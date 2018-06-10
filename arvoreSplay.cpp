@@ -277,3 +277,20 @@ void arvoreSplay::deletar(int QuestionID, int OwnerUserID)
     long long unsigned key = calculaChave(QuestionID,OwnerUserID);
     this->auxDeletar(key);
 }
+
+arvoreSplay::~arvoreSplay()
+{
+    this->libera(this->raiz);
+}
+
+void arvoreSplay::libera(noSplay * no)
+{
+    if(no!=NULL)
+    {
+        noSplay * aux1 = no->esq;
+        noSplay * aux2 = no->dir;
+        delete no;
+        libera(aux1);
+        libera(aux2);
+    }
+}

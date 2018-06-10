@@ -5,7 +5,7 @@
 #include "Data.h"
 #include "arvoreSplay.h"
 #include "ArvVerPre.h"
-
+#include "MinhaArvore.h"
 void geraSaida(int N);
 void geraSaidaBusca(Data * dados,AVL * arvore, int N);
 void geraSaidaRemocao(Data * dados,AVL * arvore, int N);
@@ -25,4 +25,7 @@ void remocaoVP(int N, ArvVerPre * vp);
 void insercaoAVLModificada(int N);
 void buscaAVLModificada(int N, AVL * avl);
 void remocaoAVLModificada(int N, AVL * avl);
+void insercaoMinhaArvore(int N);
+void buscaMinhaArvore(int N, MinhaArvore * arv);
+void remocaoMinhaArvore(int N, MinhaArvore * arv);
 #endif // TESTES_H_INCLUDED
